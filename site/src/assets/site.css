@@ -246,10 +246,6 @@ code {
   white-space: nowrap;
 }
 
-.btn-dl small span + span::before {
-  content: "· ";
-}
-
 .cta .btn {
   min-height: 68px;
 }
@@ -1036,10 +1032,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .btn-dl small span + span::before {
-    content: none;
   }
 
   .facts {

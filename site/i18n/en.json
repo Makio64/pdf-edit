@@ -30,7 +30,6 @@
   "footer.tm": "Mac, macOS, Pages and Preview are trademarks of Apple Inc. Word is a trademark of Microsoft Corporation. PDF Edit is not affiliated with Apple or Microsoft.",
   "dl.button": "Download for Mac",
   "dl.macos": "macOS 11 or later",
-  "dl.chips": "Intel and Apple Silicon",
   "dl.version": "Version {{VERSION}}",
   "og.image_alt": "The PDF Edit screen “Que voulez-vous faire ?” (What do you want to do?), in French, with its three choices: correct a few words, edit in Pages, or edit in Word.",
   "og.title": "Edit a PDF on your Mac, the easy way",

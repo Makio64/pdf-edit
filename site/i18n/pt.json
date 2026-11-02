@@ -30,7 +30,6 @@
   "footer.tm": "Mac, macOS, Pages e <span class=\"nw\">Pré-visualização</span> são marcas da Apple Inc. Word é uma marca da Microsoft Corporation. O PDF Edit não está afiliado à Apple nem à Microsoft.",
   "dl.button": "Transferir para Mac",
   "dl.macos": "macOS 11 ou posterior",
-  "dl.chips": "Intel e Apple Silicon",
   "dl.version": "Versão {{VERSION}}",
   "og.image_alt": "O ecrã do PDF Edit «Que voulez-vous faire ?» (O que deseja fazer?), em francês, com as suas três opções: corrigir algumas palavras, editar no Pages ou editar no Word.",
   "og.title": "Editar um PDF no seu Mac, sem\u00a0complicações",

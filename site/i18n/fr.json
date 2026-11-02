@@ -30,7 +30,6 @@
   "footer.tm": "Mac, macOS, Pages et Aperçu sont des marques d’Apple Inc. Word est une marque de Microsoft Corporation. PDF Edit n’est affilié ni à Apple ni à Microsoft.",
   "dl.button": "Télécharger pour Mac",
   "dl.macos": "macOS\u00a011 ou plus récent",
-  "dl.chips": "Intel et Apple Silicon",
   "dl.version": "Version {{VERSION}}",
   "og.image_alt": "PDF Edit\u00a0: l’écran «\u00a0Que voulez-vous faire\u202f?\u00a0» et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word.",
   "og.title": "Modifier un PDF sur Mac, simplement",

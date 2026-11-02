@@ -30,7 +30,6 @@
   "footer.tm": "Mac、macOS、Pages、プレビューはApple Inc.の商標です。WordはMicrosoft Corporationの商標です。PDF Editは、AppleともMicrosoftとも提携していません。",
   "dl.button": "Mac版をダウンロード",
   "dl.macos": "macOS 11以降",
-  "dl.chips": "IntelとAppleシリコンに対応",
   "dl.version": "バージョン{{VERSION}}",
   "og.image_alt": "PDF Editのフランス語の画面「Que voulez-vous faire ?」（何をしますか？）。文字を少し直す、Pagesで編集する、Wordで編集する、の3つから選べます。",
   "og.title": "MacでPDFを、かんたんに編集",

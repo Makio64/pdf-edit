@@ -30,7 +30,6 @@
   "footer.tm": "Mac、macOS、Pages 和“预览”是 Apple Inc. 的商标。Word 是 Microsoft Corporation 的商标。PDF Edit 与 Apple 和 Microsoft 均无关联。",
   "dl.button": "下载 Mac 版",
   "dl.macos": "macOS 11 或更高版本",
-  "dl.chips": "支持 Intel 和 Apple 芯片",
   "dl.version": "版本 {{VERSION}}",
   "og.image_alt": "PDF Edit 的法语界面“Que voulez-vous faire ?”（您想做什么？），有三个选项：修改几个字、在 Pages 中修改、在 Word 中修改。",
   "og.title": "在 Mac 上，轻松修改 PDF",

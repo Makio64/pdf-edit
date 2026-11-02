@@ -7,7 +7,7 @@ I made PDF Edit to help my mum edit her PDFs on her Mac, and for anyone who need
 
 Free, no account, no ads, and your documents never leave your computer. The app speaks French for now.
 
-**[Download for Mac](https://github.com/Makio64/pdf-edit/releases/latest)** (macOS 11 or later, Intel and Apple Silicon) · **[Use it online](https://pdf-edit-mac.netlify.app/en-ligne/)** · [Website](https://pdf-edit-mac.netlify.app)
+**[Download for Mac](https://github.com/Makio64/pdf-edit/releases/latest)** (macOS 11 or later) · **[Use it online](https://pdf-edit-mac.netlify.app/en-ligne/)** · [Website](https://pdf-edit-mac.netlify.app)
 
 ## For developers
 
