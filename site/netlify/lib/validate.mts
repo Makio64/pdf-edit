@@ -18,9 +18,13 @@ interface EventRule {
   serverOnly?: boolean
 }
 
-// The pages the beacon names (src/assets/track.js normalises the path to one of them). /app/ and
-// /app/edit.html are only counted when opened on their own: framed in /en-ligne/ they send no page view.
+// The pages the beacon names: the French address of the page whatever its language (each public page
+// declares it in <html data-pv>; otherwise src/assets/track.js normalises the path to one of them). /app/
+// and /app/edit.html are only counted when opened on their own: framed in /en-ligne/ they send no page view.
 export const PAGES = ['/', '/en-ligne/', '/questions/', '/mentions-legales/', '/app/', '/app/edit.html', '/404', 'other'] as const
+// The languages of the site (the dictionaries of site/i18n; scripts/build-web.sh refuses one that is not
+// listed here): `l` of a page view is the page's language, from <html lang>.
+export const LANGS = ['fr', 'en', 'es', 'de', 'it', 'pt', 'zh', 'ja'] as const
 export const OS_LIST = ['mac', 'ios', 'windows', 'android', 'linux', 'chromeos', 'other'] as const
 export const DL_SOURCES = ['hero', 'header', 'download', 'footer', 'faq', 'app', 'other'] as const
 export const GH_SOURCES = ['header', 'footer', 'opensource', 'download', 'faq', 'other'] as const
@@ -36,6 +40,7 @@ export const EVENTS: Record<string, EventRule> = {
       u: { re: /^[a-z0-9._-]{1,30}$/ },
       d: { values: ['mobile', 'desktop'] },
       os: { values: OS_LIST },
+      l: { values: LANGS },
     },
   },
   conv: {
@@ -56,6 +61,8 @@ export const EVENTS: Record<string, EventRule> = {
       v: { re: /^[0-9][0-9a-z.-]{0,15}$/ },
       src: { values: DL_SOURCES },
       os: { values: OS_LIST },
+      // The language of the page the link was on (`&l=` of the translated pages' links); none: French.
+      l: { values: LANGS },
     },
   },
 }

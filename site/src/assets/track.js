@@ -1,5 +1,6 @@
 // PDF Edit's cookieless counts (docs/WEB.md §5). Never throws: the app imports it.
 const nav = globalThis.navigator || {}
+const de = globalThis.document?.documentElement
 let opt
 try { opt = localStorage['pdfedit.optout'] === '1' } catch {}
 const off = opt || nav.globalPrivacyControl === true || nav.doNotTrack === '1' || nav.webdriver
@@ -28,10 +29,11 @@ function pageview() {
   let p = location.pathname.replace(/(^|\/)(index|drop)\.html$/, '$1').replace(/\/edit$/, '/edit.html')
   if (!/\.html$|\/$/.test(p)) p += '/'
   let ref
-  try { ref = document.referrer && new URL(document.referrer) } catch {}
+  try { ref = new URL(document.referrer) } catch {}
   const dims = {
-    p: document.documentElement.dataset.page === '404' ? '/404' : /^\/(app\/(edit\.html)?|(mentions-legales|en-ligne|questions)\/)?$/.test(p) ? p : 'other',
+    p: de.dataset.pv || (/^\/(app\/(edit\.html)?|(mentions-legales|en-ligne|questions)\/)?$/.test(p) ? p : 'other'),
     e: !ref || ref.host !== location.host ? 1 : 0,
+    l: /^(fr|en|es|de|it|pt|zh|ja)/.exec(de.lang)?.[1],
   }
   if (dims.e) dims.r = ref ? source(ref.hostname) : 'direct'
   const u = (new URLSearchParams(location.search).get('utm_source') || '').toLowerCase().replace(/[^a-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30)
@@ -45,8 +47,8 @@ function pageview() {
 
 if (opt) try { for (const a of document.querySelectorAll('a[href^="/telecharger/"]')) a.search += '&nc=1' } catch {}
 if (!off && globalThis.document) {
-  // In /en-ligne/'s frame, no page view.
-  try { if (top === self && !document.documentElement.hasAttribute('data-no-pageview')) pageview() } catch {}
+  // Framed: no page view
+  try { if (top === self && !de.hasAttribute('data-no-pageview')) pageview() } catch {}
   const onClick = (ev) => {
     const el = ev.target instanceof Element && ev.target.closest('[data-track="gh"]')
     const src = el && el.dataset.trackSrc

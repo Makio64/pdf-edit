@@ -218,6 +218,15 @@ describe('GET /telecharger/mac', () => {
     assert.deepEqual(parseDims(parseEventKey(noFrom[0])!.dims), { v: '1.1.1', src: 'other', os: 'mac' })
   })
 
+  it('records the language of the page the link was on, only when it is one of the site', async () => {
+    const dims = async (path: string) => parseDims(parseEventKey((await download(path)).keys[0])!.dims)
+    assert.deepEqual(await dims('/telecharger/mac?from=hero&l=zh'), { v: '1.1.1', src: 'hero', os: 'mac', l: 'zh' })
+    assert.deepEqual(await dims('/telecharger/mac?from=header&l=fr'), { v: '1.1.1', src: 'header', os: 'mac', l: 'fr' })
+    for (const bad of ['xx', 'zh-Hans', 'EN', '', '<b>']) {
+      assert.deepEqual(await dims(`/telecharger/mac?from=hero&l=${encodeURIComponent(bad)}`), { v: '1.1.1', src: 'hero', os: 'mac' }, bad)
+    }
+  })
+
   it('redirects to a GitHub release URL as is', async () => {
     const url = 'https://github.com/Makio64/pdf-edit/releases/download/v1.1.1/PDF-Edit-1.1.1.dmg'
     const { res } = await download('/telecharger/mac?from=app', {}, { ...RELEASE, url })

@@ -43,6 +43,7 @@ export interface DayPoint {
 
 export const BREAKDOWNS = [
   'pages',
+  'languages',
   'referrers',
   'utm',
   'os',
@@ -52,6 +53,7 @@ export const BREAKDOWNS = [
   'conv_errors',
   'dl_version',
   'dl_src',
+  'dl_lang',
   'dl_os',
   'gh_src',
 ] as const
@@ -198,7 +200,11 @@ export function accumulate(counts: Counts, totals: Totals, breakdowns?: Breakdow
       switch (n) {
         case 'pv': {
           totals.pv += c
-          if (b) bump(b.pages, d.p, c)
+          if (b) {
+            bump(b.pages, d.p, c)
+            // Every page view, by the page's language (`unknown`: counted before languages, or an app page).
+            bump(b.languages, d.l, c)
+          }
           if (d.e === '1') {
             totals.visits += c
             if (b) {
@@ -226,6 +232,8 @@ export function accumulate(counts: Counts, totals: Totals, breakdowns?: Breakdow
           if (b) {
             bump(b.dl_version, d.v, c)
             bump(b.dl_src, d.src, c, 'other')
+            // The language of the page the link was on (`unknown`: a link without it, or before November 2026).
+            bump(b.dl_lang, d.l, c)
             bump(b.dl_os, d.os, c)
           }
           break

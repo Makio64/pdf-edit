@@ -1,8 +1,12 @@
 <!doctype html>
-<!-- Source of site/src/og.png (1200×630), not deployed. Render it with:
+<!-- Source of the social images (1200×630), not deployed: site/src/og.png (French, as written below) and
+     site/src/og-<code>.png for every other language, with the tagline of site/i18n/<code>.json given in
+     the query string (?lang=en&title=…&sub=…&chips=Free|No sign-up|…). Render them with:
+       site/og/render.sh              every language but French (site/og/render.sh fr: og.png again)
+     which runs, for each language:
      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --hide-scrollbars \
        --force-device-scale-factor=1 --window-size=1200,630 \
-       --screenshot=site/src/og.png "file://$PWD/site/og/og.html" -->
+       --screenshot=site/src/og-en.png "file://$PWD/site/og/og.html?lang=en&title=…" -->
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
@@ -110,5 +114,18 @@
       </ul>
     </div>
     <div class="frame og-shot"><img src="../src/img/app-2-que-faire.webp" width="1600" height="1047" alt="" /></div>
+    <script>
+      // Another language's tagline (site/og/render.sh), then a smaller title until the text fits.
+      const q = new URLSearchParams(location.search)
+      if (q.get('lang')) document.documentElement.lang = q.get('lang')
+      if (q.get('title')) document.querySelector('h1').textContent = q.get('title')
+      if (q.get('sub')) document.querySelector('.og-sub').textContent = q.get('sub')
+      const chips = document.querySelectorAll('.og-chips li')
+      if (q.get('chips')) q.get('chips').split('|').forEach((text, i) => chips[i] && (chips[i].lastChild.textContent = text))
+      const box = document.querySelector('.og-text')
+      const h1 = document.querySelector('h1')
+      const height = () => box.lastElementChild.getBoundingClientRect().bottom - box.firstElementChild.getBoundingClientRect().top
+      for (let size = 62; size > 40 && (height() > 560 || h1.scrollWidth > h1.clientWidth); size -= 2) h1.style.fontSize = size - 2 + 'px'
+    </script>
   </body>
 </html>

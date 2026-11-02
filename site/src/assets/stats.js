@@ -27,6 +27,17 @@ const LABELS = {
     '/404': 'Page introuvable',
     other: 'Autre page',
   },
+  // The languages of the pages (their French names); `unknown`: before languages (November 2026).
+  languages: {
+    fr: 'Français',
+    en: 'Anglais',
+    es: 'Espagnol',
+    de: 'Allemand',
+    it: 'Italien',
+    pt: 'Portugais',
+    zh: 'Chinois',
+    ja: 'Japonais',
+  },
   referrers: {
     direct: 'Accès direct, favori ou lien privé',
     google: 'Google',
@@ -80,12 +91,16 @@ const LABELS = {
   },
 }
 LABELS.dl_os = LABELS.os
+// The language of the page the download link was on; `unknown`: a link without it (another site, a
+// bookmark) or before November 2026.
+LABELS.dl_lang = LABELS.languages
 
 const GROUPS = [
   {
     title: 'Audience',
     tables: [
       { name: 'pages', title: 'Pages vues', col: 'Page' },
+      { name: 'languages', title: 'Langues', col: 'Langue' },
       { name: 'referrers', title: 'D’où viennent les visites', col: 'Source', raw: true },
       { name: 'utm', title: 'Campagnes (utm_source)', col: 'Campagne', raw: true },
       { name: 'os', title: 'Systèmes des visiteurs', col: 'Système' },
@@ -96,6 +111,7 @@ const GROUPS = [
     title: 'Téléchargements Mac',
     tables: [
       { name: 'dl_src', title: 'Bouton utilisé', col: 'Endroit' },
+      { name: 'dl_lang', title: 'Langue de la page', col: 'Langue' },
       { name: 'dl_version', title: 'Versions', col: 'Version', raw: true },
       { name: 'dl_os', title: 'Système au moment du téléchargement', col: 'Système' },
     ],

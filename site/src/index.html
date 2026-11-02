@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="fr">
+<html lang="{{lang}}" data-pv="/">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Modifier un PDF sur Mac, gratuit et simple — PDF Edit</title>
-    <meta name="description" content="Corrigez un PDF ou convertissez-le en Word ou en Pages sur Mac. Gratuit, sans inscription, et vos documents restent sur votre ordinateur." />
-    <link rel="canonical" href="{{SITE_URL}}/" />
+    <title>{{t:home.title}}</title>
+    <meta name="description" content="{{t:home.description}}" />
+    <link rel="canonical" href="{{SITE_URL}}{{url:home}}" />
+    {{hreflang_links}}
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -13,19 +14,20 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PDF Edit" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:title" content="PDF Edit — modifier un PDF sur Mac, simplement" />
-    <meta property="og:description" content="Corrigez quelques mots dans un PDF, ou ouvrez-le dans Word ou Pages. Gratuit, sans inscription, et vos documents restent chez vous." />
-    <meta property="og:url" content="{{SITE_URL}}/" />
-    <meta property="og:image" content="{{SITE_URL}}/og.png" />
+    <meta property="og:locale" content="{{og_locale}}" />
+    {{og_locale_alternates}}
+    <meta property="og:title" content="{{t:home.og_title}}" />
+    <meta property="og:description" content="{{t:home.og_description}}" />
+    <meta property="og:url" content="{{SITE_URL}}{{url:home}}" />
+    <meta property="og:image" content="{{SITE_URL}}/{{og_image}}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="PDF Edit : l’écran « Que voulez-vous faire ? » et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word." />
+    <meta property="og:image:alt" content="{{t:og.image_alt}}" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="PDF Edit — modifier un PDF sur Mac, simplement" />
-    <meta name="twitter:description" content="Corrigez quelques mots dans un PDF, ou ouvrez-le dans Word ou Pages. Gratuit, sans inscription, et vos documents restent chez vous." />
-    <meta name="twitter:image" content="{{SITE_URL}}/og.png" />
-    <meta name="twitter:image:alt" content="PDF Edit : l’écran « Que voulez-vous faire ? » et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word." />
+    <meta name="twitter:title" content="{{t:home.og_title}}" />
+    <meta name="twitter:description" content="{{t:home.og_description}}" />
+    <meta name="twitter:image" content="{{SITE_URL}}/{{og_image}}" />
+    <meta name="twitter:image:alt" content="{{t:og.image_alt}}" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script type="application/ld+json">
       {
@@ -33,15 +35,15 @@
         "@type": "SoftwareApplication",
         "name": "PDF Edit",
         "alternateName": "Modifier mes PDF",
-        "description": "Application gratuite pour Mac : corriger quelques mots directement dans un PDF, ou le transformer en document Word ou Pages, sans inscription et sans envoyer vos documents sur Internet.",
-        "url": "{{SITE_URL}}/",
-        "operatingSystem": "macOS 11 ou ultérieur",
+        "description": "{{t:home.ld_description}}",
+        "url": "{{SITE_URL}}{{url:home}}",
+        "operatingSystem": "{{t:home.ld_os}}",
         "applicationCategory": "UtilitiesApplication",
         "softwareVersion": "{{VERSION}}",
         "fileSize": "{{DMG_SIZE}}",
         "downloadUrl": "{{SITE_URL}}{{DOWNLOAD_URL}}",
         "datePublished": "{{RELEASE_DATE}}",
-        "inLanguage": "fr",
+        "inLanguage": "{{lang}}",
         "isAccessibleForFree": true,
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
         "author": { "@type": "Organization", "name": "Makio" },
@@ -50,7 +52,7 @@
           "{{SITE_URL}}/img/app-corriger-dans-le-pdf.webp",
           "{{SITE_URL}}/img/app-4-pret.webp"
         ],
-        "image": "{{SITE_URL}}/og.png"
+        "image": "{{SITE_URL}}/{{og_image}}"
       }
     </script>
     <script type="application/ld+json">
@@ -58,8 +60,8 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "PDF Edit",
-        "url": "{{SITE_URL}}/",
-        "inLanguage": "fr"
+        "url": "{{SITE_URL}}{{url:home}}",
+        "inLanguage": "{{lang}}"
       }
     </script>
     <!--IF_GITHUB-->
@@ -89,62 +91,66 @@
       <symbol id="i-offline" viewBox="0 0 24 24"><path d="M12 19.5h.01M8.6 15.8a5 5 0 0 1 6.8 0M5 12.4a10 10 0 0 1 5-2.5M19 12.4a10 10 0 0 0-2-1.4M2 9a15 15 0 0 1 4.2-2.6M22 9a15 15 0 0 0-11.3-3.8M3 3l18 18" /></symbol>
     </svg>
 
-    <a class="skip" href="#contenu">Aller au contenu</a>
+    <a class="skip" href="#contenu">{{t:nav.skip}}</a>
 
     <header class="site-header">
       <div class="wrap bar">
-        <a class="brand" href="/" aria-label="PDF Edit, accueil"><img src="/favicon.svg" alt="" width="32" height="32" /><span class="brand-name">PDF Edit</span></a>
-        <nav aria-label="Menu principal">
+        <a class="brand" href="{{url:home}}" aria-label="{{t:nav.brand}}"><img src="/favicon.svg" alt="" width="32" height="32" /><span class="brand-name">PDF Edit</span></a>
+        <nav aria-label="{{t:nav.label}}">
           <ul class="nav-links">
-            <li class="nav-home"><a href="/" aria-current="page">Accueil</a></li>
-            <li><a href="/en-ligne/">Version en ligne</a></li>
-            <li><a href="/questions/">Questions</a></li>
-            <li><a href="/mentions-legales/">Confidentialité</a></li>
+            <li class="nav-home"><a href="{{url:home}}" aria-current="page">{{t:nav.home}}</a></li>
+            <li><a href="{{url:online}}">{{t:nav.online}}</a></li>
+            <li><a href="{{url:faq}}">{{t:nav.faq}}</a></li>
+            <li><a href="{{url:privacy}}">{{t:nav.privacy}}</a></li>
           </ul>
-          <details class="nav-menu">
-            <summary><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg><span class="menu-label">Menu</span></summary>
+          <details class="nav-menu" name="site-menu">
+            <summary><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg><span class="menu-label">{{t:nav.menu}}</span></summary>
             <ul class="nav-panel">
-              <li><a href="/" aria-current="page">Accueil</a></li>
-              <li><a href="/en-ligne/">Version en ligne</a></li>
-              <li><a href="/questions/">Questions</a></li>
-              <li><a href="/mentions-legales/">Confidentialité</a></li>
+              <li><a href="{{url:home}}" aria-current="page">{{t:nav.home}}</a></li>
+              <li><a href="{{url:online}}">{{t:nav.online}}</a></li>
+              <li><a href="{{url:faq}}">{{t:nav.faq}}</a></li>
+              <li><a href="{{url:privacy}}">{{t:nav.privacy}}</a></li>
+              <!--IF_GITHUB--><li><a href="{{GITHUB_URL}}" data-track="gh" data-track-src="header">{{t:nav.github}}</a></li><!--/IF_GITHUB-->
             </ul>
           </details>
         </nav>
-        <a class="btn btn-primary btn-sm header-dl" href="{{DOWNLOAD_URL}}?from=header"><span>Télécharger<span class="dl-mac"> pour Mac</span></span></a>
+        <!--IF_GITHUB--><a class="gh-link" href="{{GITHUB_URL}}" data-track="gh" data-track-src="header" aria-label="{{t:nav.github}}" title="{{t:nav.github}}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg></a><!--/IF_GITHUB-->
+        {{lang_switcher}}
+        <a class="btn btn-primary btn-sm header-dl" href="{{DOWNLOAD_URL}}?from=header{{dl_lang}}"><span>{{t:nav.download}}</span></a>
       </div>
     </header>
 
     <main id="contenu">
       <section class="hero" aria-labelledby="titre">
         <div class="wrap">
-          <h1 id="titre">Modifier un PDF <span class="nw">sur Mac,</span> simplement</h1>
+          <h1 id="titre">{{t:home.h1}}</h1>
           <p class="lead">
-            Corrigez quelques mots dans le PDF, ou transformez-le en Word ou Pages : c’est gratuit, sans inscription, et vos
-            documents restent sur votre ordinateur.
+            {{t:home.lead}}
           </p>
           <div class="cta">
-            <a class="btn btn-primary btn-lg btn-dl" href="{{DOWNLOAD_URL}}?from=hero"><svg class="icon" aria-hidden="true"><use href="#i-down" /></svg><span class="btn-dl-text">Télécharger pour Mac<small><span>macOS 11 ou plus récent</span> <span>Intel et Apple Silicon</span></small></span></a>
-            <a class="btn btn-lg" href="/en-ligne/">Essayer en ligne</a>
+            <a class="btn btn-primary btn-lg btn-dl" href="{{DOWNLOAD_URL}}?from=hero{{dl_lang}}"><svg class="icon" aria-hidden="true"><use href="#i-down" /></svg><span class="btn-dl-text">{{t:dl.button}}<small><span>{{t:dl.macos}}</span> <span>{{t:dl.chips}}</span></small></span></a>
+            <a class="btn btn-lg" href="{{url:online}}">{{t:home.try_online}}</a>
           </div>
+          <!--IF_GITHUB--><p class="oss-line"><span>{{t:home.oss_free}}</span><a href="{{GITHUB_URL}}" data-track="gh" data-track-src="opensource"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></svg>{{t:home.oss_link}}</a></p><!--/IF_GITHUB-->
+          <!--IF_NOT_FR--><p class="lang-note">{{t:home.note_french}}</p><!--/IF_NOT_FR-->
           <div class="tour" data-tour>
             <div class="frame hero-shot">
               <div class="tour-slides">
-                <img class="tour-slide is-active" src="/img/app-1-choisir.webp" width="1600" height="1047" fetchpriority="high" decoding="async" alt="Étape 1 de PDF Edit, l’écran « Quel PDF voulez-vous modifier ? », avec un grand bouton « Choisir un PDF… » et une zone où glisser le fichier." />
-                <img class="tour-slide" src="/img/app-2-que-faire.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="Étape 2, l’écran « Que voulez-vous faire ? » pour le fichier « Lettre de l’association.pdf », avec trois choix : Corriger quelques mots, Modifier dans Pages, Modifier dans Word." />
-                <img class="tour-slide" src="/img/app-3-ou-enregistrer.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="Étape 3, l’écran « Où enregistrer le nouveau fichier ? », avec trois choix : Sur le Bureau, Dans Téléchargements, Choisir un dossier…" />
-                <img class="tour-slide" src="/img/app-4-pret.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="L’écran « C’est prêt ! » : le fichier « Lettre de l’association.docx » est sur le Bureau, avec les boutons « Montrer dans le dossier » et « Ouvrir le fichier »." />
+                <img class="tour-slide is-active" src="/img/app-1-choisir.webp" width="1600" height="1047" fetchpriority="high" decoding="async" alt="{{t:home.shot1_alt}}" />
+                <img class="tour-slide" src="/img/app-2-que-faire.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="{{t:home.shot2_alt}}" />
+                <img class="tour-slide" src="/img/app-3-ou-enregistrer.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="{{t:home.shot3_alt}}" />
+                <img class="tour-slide" src="/img/app-4-pret.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="{{t:home.shot4_alt}}" />
               </div>
             </div>
-            <div class="tour-nav" role="group" aria-label="Les étapes dans l’application">
-              <button type="button" class="tour-dot is-active" aria-current="step" aria-label="Étape 1 : choisir le PDF" data-caption="1. Choisissez le PDF à modifier.">1</button>
-              <button type="button" class="tour-dot" aria-label="Étape 2 : que voulez-vous faire ?" data-caption="2. Corrigez quelques mots, ou ouvrez-le dans Pages ou Word.">2</button>
-              <button type="button" class="tour-dot" aria-label="Étape 3 : où l’enregistrer ?" data-caption="3. Choisissez où enregistrer le nouveau fichier.">3</button>
-              <button type="button" class="tour-dot" aria-label="C’est prêt !" data-caption="C’est prêt ! PDF Edit vous dit où est le fichier.">
+            <div class="tour-nav" role="group" aria-label="{{t:home.steps_label}}">
+              <button type="button" class="tour-dot is-active" aria-current="step" aria-label="{{t:home.step1_label}}" data-caption="{{t:home.step1_caption}}">1</button>
+              <button type="button" class="tour-dot" aria-label="{{t:home.step2_label}}" data-caption="{{t:home.step2_caption}}">2</button>
+              <button type="button" class="tour-dot" aria-label="{{t:home.step3_label}}" data-caption="{{t:home.step3_caption}}">3</button>
+              <button type="button" class="tour-dot" aria-label="{{t:home.step4_label}}" data-caption="{{t:home.step4_caption}}">
                 <svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>
               </button>
             </div>
-            <p class="tour-caption">1. Choisissez le PDF à modifier.</p>
+            <p class="tour-caption">{{t:home.step1_caption}}</p>
           </div>
         </div>
       </section>
@@ -153,23 +159,21 @@
         <div class="wrap">
           <div class="split">
             <div class="split-text">
-              <h2 id="corriger-titre">Corriger directement dans le PDF</h2>
+              <h2 id="corriger-titre">{{t:home.correct_h2}}</h2>
               <p>
-                Cliquez sur la ligne, tapez la correction, puis appuyez sur Entrée. Elle s’écrit dans la police du PDF, et le
-                reste de la page ne bouge pas.
+                {{t:home.correct_text}}
               </p>
             </div>
-            <div class="frame"><picture><source media="(max-width: 560px)" srcset="/img/app-corriger-dans-le-pdf-crop.webp" width="1306" height="825" /><img src="/img/app-corriger-dans-le-pdf.webp" width="1600" height="1047" loading="lazy" decoding="async" alt="Une lettre ouverte dans PDF Edit : la date « Paris, le 10 novembre 2026 » vient d’être retapée dans la police de la lettre, encadrée ; en bas, « 1 ligne modifiée » et le bouton « Enregistrer sur le Bureau »." /></picture></div>
+            <div class="frame"><picture><source media="(max-width: 560px)" srcset="/img/app-corriger-dans-le-pdf-crop.webp" width="1306" height="825" /><img src="/img/app-corriger-dans-le-pdf.webp" width="1600" height="1047" loading="lazy" decoding="async" alt="{{t:home.correct_alt}}" /></picture></div>
           </div>
           <div class="split split-rev">
             <div class="split-text">
-              <h3>Avant, après</h3>
+              <h3>{{t:home.compare_h3}}</h3>
               <p>
-                Le bouton « Comparer » montre l’avant et l’après. Votre PDF d’origine n’est jamais modifié : la correction est
-                enregistrée dans un nouveau fichier.
+                {{t:home.compare_text}}
               </p>
             </div>
-            <div class="frame"><img src="/img/app-comparer.webp" width="1600" height="1047" loading="lazy" decoding="async" alt="L’écran « Avant et après vos corrections » : « Paris, le 3 novembre 2026 » devient « Paris, le 10 novembre 2026 », avec la page d’origine et la page corrigée côte à côte." /></div>
+            <div class="frame"><img src="/img/app-comparer.webp" width="1600" height="1047" loading="lazy" decoding="async" alt="{{t:home.compare_alt}}" /></div>
           </div>
         </div>
       </section>
@@ -177,29 +181,29 @@
       <section id="confidentialite" class="section" aria-labelledby="confidentialite-titre">
         <div class="wrap">
           <div class="section-head">
-            <h2 id="confidentialite-titre">Vos documents restent chez vous</h2>
+            <h2 id="confidentialite-titre">{{t:home.privacy_h2}}</h2>
           </div>
           <ul class="points">
             <li>
               <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-laptop" /></svg></span>
-              <h3>Rien n’est envoyé</h3>
-              <p>Tout se fait sur votre Mac.</p>
+              <h3>{{t:home.point1_h3}}</h3>
+              <p>{{t:home.point1_text}}</p>
             </li>
             <li>
               <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-heart" /></svg></span>
-              <h3>Gratuit</h3>
-              <p>Sans compte, sans publicité.</p>
+              <h3>{{t:home.point2_h3}}</h3>
+              <p>{{t:home.point2_text}}</p>
             </li>
             <li>
               <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-offline" /></svg></span>
-              <h3>Sans Internet</h3>
-              <p>Sauf, une seule fois, pour télécharger une police gratuite qui manque.</p>
+              <h3>{{t:home.point3_h3}}</h3>
+              <p>{{t:home.point3_text}}</p>
             </li>
             <!--IF_GITHUB-->
             <li>
               <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-code" /></svg></span>
-              <h3>Open source</h3>
-              <p>Le code est public, <a href="{{GITHUB_URL}}" data-track="gh" data-track-src="opensource">sur GitHub</a>.</p>
+              <h3>{{t:home.point4_h3}}</h3>
+              <p>{{t:home.point4_text}}</p>
             </li>
             <!--/IF_GITHUB-->
           </ul>
@@ -209,10 +213,10 @@
       <section id="telecharger" class="section download" aria-labelledby="telecharger-titre">
         <div class="wrap">
           <img class="app-icon" src="/favicon.svg" alt="" width="76" height="76" loading="lazy" />
-          <h2 id="telecharger-titre">PDF&nbsp;Edit pour Mac</h2>
-          <a class="btn btn-primary btn-lg btn-dl" href="{{DOWNLOAD_URL}}?from=download"><svg class="icon" aria-hidden="true"><use href="#i-down" /></svg><span class="btn-dl-text">Télécharger pour Mac<small><span>macOS 11 ou plus récent</span> <span>Intel et Apple Silicon</span></small></span></a>
-          <p class="facts"><span>Version {{VERSION}}</span> <span>{{DMG_SIZE}}</span></p>
-          <p class="alt-link"><a href="/en-ligne/">Pas de Mac ? Essayer la version en ligne</a></p>
+          <h2 id="telecharger-titre">{{t:home.download_h2}}</h2>
+          <a class="btn btn-primary btn-lg btn-dl" href="{{DOWNLOAD_URL}}?from=download{{dl_lang}}"><svg class="icon" aria-hidden="true"><use href="#i-down" /></svg><span class="btn-dl-text">{{t:dl.button}}<small><span>{{t:dl.macos}}</span> <span>{{t:dl.chips}}</span></small></span></a>
+          <p class="facts"><span>{{t:dl.version}}</span> <span>{{DMG_SIZE}}</span></p>
+          <p class="alt-link"><a href="{{url:online}}">{{t:home.alt_link}}</a></p>
         </div>
       </section>
     </main>
@@ -221,13 +225,14 @@
       <div class="wrap">
         <ul class="foot-links">
           <li>© 2026 Makio</li>
-          <li><a href="/mentions-legales/">Confidentialité et mentions légales</a></li>
-          <li><a href="/questions/">Questions</a></li>
+          <li><a href="{{url:privacy}}">{{t:footer.privacy}}</a></li>
+          <li><a href="{{url:faq}}">{{t:footer.faq}}</a></li>
           <!--IF_GITHUB-->
-          <li><a href="{{GITHUB_URL}}" data-track="gh" data-track-src="footer">Code source sur GitHub</a></li>
+          <li><a href="{{GITHUB_URL}}" data-track="gh" data-track-src="footer">{{t:footer.github}}</a></li>
           <!--/IF_GITHUB-->
         </ul>
-        <p class="tm">Mac, macOS, Pages et Aperçu sont des marques d’Apple Inc. Word est une marque de Microsoft Corporation. PDF Edit n’est affilié ni à Apple ni à Microsoft.</p>
+        {{lang_list}}
+        <p class="tm">{{t:footer.tm}}</p>
       </div>
     </footer>
   </body>

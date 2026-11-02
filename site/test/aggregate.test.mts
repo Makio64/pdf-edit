@@ -120,6 +120,18 @@ describe('buildStats', () => {
     assert.deepEqual(breakdowns.os, { mac: 4 })
   })
 
+  it('breaks every page view down by language, one page whatever its language', async () => {
+    const store = memoryStore()
+    put(store, TODAY, 'pv', { p: '/', e: '1', r: 'google', l: 'fr' }, 3)
+    put(store, TODAY, 'pv', { p: '/', e: '1', r: 'google', l: 'en' }, 2)
+    put(store, TODAY, 'pv', { p: '/en-ligne/', e: '0', l: 'zh' })
+    put(store, TODAY, 'pv', { p: '/questions/', e: '0', l: 'ja' }, 4)
+    put(store, YESTERDAY, 'pv', { p: '/' }) // before the languages: unknown
+    const { breakdowns } = await buildStats(store, { range: 7, nowMs: NOW })
+    assert.deepEqual(Object.entries(breakdowns.languages), [['ja', 4], ['fr', 3], ['en', 2], ['unknown', 1], ['zh', 1]])
+    assert.deepEqual(breakdowns.pages, { '/': 6, '/questions/': 4, '/en-ligne/': 1 })
+  })
+
   it('computes totals and sorted breakdowns', async () => {
     const store = memoryStore()
     put(store, TODAY, 'pv', { p: '/', e: '1', r: 'direct', u: 'lettre', d: 'mobile', os: 'ios' }, 2)
@@ -133,7 +145,8 @@ describe('buildStats', () => {
     put(store, TODAY, 'esave', { ok: '0' })
     put(store, TODAY, 'gh', { src: 'footer' })
     put(store, YESTERDAY, 'dl', { v: '1.1.0', src: 'header', os: 'mac' })
-    put(store, TODAY, 'dl', { v: '1.1.1', src: 'hero', os: 'mac' }, 3)
+    put(store, TODAY, 'dl', { v: '1.1.1', src: 'hero', os: 'mac', l: 'en' }, 2)
+    put(store, TODAY, 'dl', { v: '1.1.1', src: 'hero', os: 'mac', l: 'fr' })
     put(store, TODAY, 'dl', { v: '1.1.1', src: 'other', os: 'windows' })
     const { totals, breakdowns } = await buildStats(store, { range: 7, nowMs: NOW })
     assert.deepEqual(totals, {
@@ -158,6 +171,7 @@ describe('buildStats', () => {
     assert.deepEqual(Object.entries(breakdowns.dl_version), [['1.1.1', 4], ['1.1.0', 1]])
     assert.deepEqual(breakdowns.dl_src, { hero: 3, header: 1, other: 1 })
     assert.deepEqual(breakdowns.dl_os, { mac: 4, windows: 1 })
+    assert.deepEqual(breakdowns.dl_lang, { en: 2, unknown: 2, fr: 1 })
     assert.deepEqual(breakdowns.gh_src, { footer: 1 })
   })
 

@@ -36,8 +36,8 @@
   Content-Type: application/x-apple-diskimage
   Content-Disposition: attachment
 
-# Shared styles, scripts, screenshots and icons: one hour in the browser (their names do not
-# change between releases, so not longer).
+# Shared styles, scripts, screenshots, icons and social images (og-<code>.png: one per language): one
+# hour in the browser (their names do not change between releases, so not longer).
 /assets/*
   Cache-Control: public, max-age=3600
 
@@ -60,6 +60,27 @@
   Cache-Control: public, max-age=3600
 
 /og.png
+  Cache-Control: public, max-age=3600
+
+/og-en.png
+  Cache-Control: public, max-age=3600
+
+/og-es.png
+  Cache-Control: public, max-age=3600
+
+/og-de.png
+  Cache-Control: public, max-age=3600
+
+/og-it.png
+  Cache-Control: public, max-age=3600
+
+/og-pt.png
+  Cache-Control: public, max-age=3600
+
+/og-zh.png
+  Cache-Control: public, max-age=3600
+
+/og-ja.png
   Cache-Control: public, max-age=3600
 
 /site.webmanifest

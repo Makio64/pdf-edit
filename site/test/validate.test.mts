@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { isBot, osFromUA, validateEvent } from '../netlify/lib/validate.mts'
+import { isBot, LANGS, osFromUA, validateEvent } from '../netlify/lib/validate.mts'
 
 describe('validateEvent: accepted', () => {
   const cases: [unknown, { n: string; dims: Record<string, string> }][] = [
@@ -22,6 +22,9 @@ describe('validateEvent: accepted', () => {
     [{ n: 'esave', ok: 0 }, { n: 'esave', dims: { ok: '0' } }],
     [{ n: 'gh', src: 'opensource' }, { n: 'gh', dims: { src: 'opensource' } }],
     [{ n: 'pv', p: '/', r: null, u: undefined }, { n: 'pv', dims: { p: '/' } }],
+    [{ n: 'pv', p: '/en-ligne/', l: 'en' }, { n: 'pv', dims: { p: '/en-ligne/', l: 'en' } }],
+    [{ n: 'pv', p: '/questions/', e: 1, r: 'baidu.com', l: 'zh' }, { n: 'pv', dims: { p: '/questions/', e: '1', r: 'baidu.com', l: 'zh' } }],
+    [{ n: 'pv', p: '/404', l: 'fr' }, { n: 'pv', dims: { p: '/404', l: 'fr' } }],
   ]
   for (const [input, expected] of cases) {
     it(JSON.stringify(input), () => assert.deepEqual(validateEvent(input), expected))
@@ -55,6 +58,11 @@ describe('validateEvent: rejected', () => {
     ['e as float', { n: 'pv', p: '/', e: 0.5 }],
     ['device unknown', { n: 'pv', p: '/', d: 'tablet' }],
     ['os unknown', { n: 'pv', p: '/', os: 'beos' }],
+    ['language not in the allowlist', { n: 'pv', p: '/', l: 'ko' }],
+    ['language as a BCP 47 tag', { n: 'pv', p: '/', l: 'zh-Hans' }],
+    ['language in capitals', { n: 'pv', p: '/', l: 'EN' }],
+    ['language as a translated path', { n: 'pv', p: '/en/online/', l: 'en' }],
+    ['language on another event', { n: 'conv', f: 'docx', ok: 1, l: 'en' }],
     ['object value', { n: 'pv', p: { toString: '/' } }],
     ['conv without ok', { n: 'conv', f: 'pages' }],
     ['conv without format', { n: 'conv', ok: 1 }],
@@ -79,6 +87,19 @@ describe('validateEvent: server-side dl', () => {
   it('rejects a bad version or source', () => {
     assert.equal(validateEvent({ n: 'dl', v: 'v1', src: 'hero' }, { serverSide: true }), null)
     assert.equal(validateEvent({ n: 'dl', v: '1.1.1', src: 'opensource' }, { serverSide: true }), null)
+  })
+  it('accepts the language of the page the link was on, from the allowlist only', () => {
+    assert.deepEqual(validateEvent({ n: 'dl', v: '1.2.1', src: 'hero', os: 'mac', l: 'de' }, { serverSide: true }), {
+      n: 'dl',
+      dims: { v: '1.2.1', src: 'hero', os: 'mac', l: 'de' },
+    })
+    assert.equal(validateEvent({ n: 'dl', v: '1.2.1', src: 'hero', l: 'xx' }, { serverSide: true }), null)
+  })
+})
+
+describe('LANGS', () => {
+  it('lists the eight languages of the site, as two-letter codes', () => {
+    assert.deepEqual([...LANGS], ['fr', 'en', 'es', 'de', 'it', 'pt', 'zh', 'ja'])
   })
 })
 

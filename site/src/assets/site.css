@@ -1,6 +1,5 @@
-/* PDF Edit website: one stylesheet for every page (/, /en-ligne/, /questions/, /mentions-legales/,
-   /404.html, /stats/). Light only: white, soft sky and mint tints, the app's ink blue for buttons and
-   links, a fresh green for checks, big type. Keep it under 25 KB. */
+/* PDF Edit website: the one stylesheet of every page, /stats/ included. Light only: white, sky and
+   mint tints, the app's ink blue, a fresh green for checks, big type. Keep it under 25 KB. */
 
 :root {
   color-scheme: light;
@@ -25,7 +24,8 @@
   --wrap: 1120px;
   --gutter: clamp(16px, 4vw, 32px);
   --header: 64px;
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --latin: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial;
+  --font: var(--latin), sans-serif;
 }
 
 /* Base */
@@ -338,7 +338,8 @@ code {
   display: none;
 }
 
-.nav-menu summary {
+.nav-menu summary,
+.lang-menu summary {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -352,11 +353,13 @@ code {
   cursor: pointer;
 }
 
-.nav-menu summary::-webkit-details-marker {
+.nav-menu summary::-webkit-details-marker,
+.lang-menu summary::-webkit-details-marker {
   display: none;
 }
 
-.nav-menu[open] summary {
+.nav-menu[open] summary,
+.lang-menu[open] summary {
   background: var(--hover);
 }
 
@@ -400,6 +403,51 @@ code {
 .frame img {
   display: block;
   width: 100%;
+}
+
+/* GitHub: an icon in the header, a line under the home buttons */
+.gh-link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--text);
+}
+
+.gh-link:hover {
+  background: var(--sky);
+}
+
+.gh-link svg,
+.oss-line svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.oss-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 10px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.oss-line a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+}
+
+.oss-line svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Sections */
@@ -883,14 +931,18 @@ main {
 
 .app-main {
   position: relative;
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
   min-height: 0;
 }
 
 .app-frame {
   display: block;
+  flex: 1 1 auto;
   width: 100%;
   height: 100%;
+  min-height: 0;
   border: 0;
   background: #faf9f6;
 }
@@ -902,6 +954,10 @@ main {
 
 /* Smaller screens */
 @media (max-width: 999px) {
+  .gh-link {
+    display: none;
+  }
+
   .nav-home,
   .dl-mac {
     display: none;
@@ -1006,7 +1062,8 @@ main {
 
 }
 
-@media (max-width: 400px) {
+/* Phones: the menu's icon only (label for screen readers), room for the switcher. */
+@media (max-width: 480px) {
   .menu-label {
     position: absolute;
     width: 1px;
@@ -1040,9 +1097,40 @@ main {
   }
 }
 
+/* ===== languages ===== */
+/* Switcher, footer list, « app in French » line. CJK: Latin fonts, then the language's own CJK fonts.
+   zh: quotes and … from the CJK font. ja: no break inside a phrase or before small kana. */
+@font-face { font-family: zhp; src: local(PingFangSC-Regular), local("Microsoft YaHei"), local(NotoSansCJKsc-Regular); unicode-range: U+2018-201D, U+2026 }
+:root:lang(zh) { --font: zhp, var(--latin), "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Hiragino Sans", "Noto Sans CJK JP", sans-serif }
+:root:lang(ja) { --font: var(--latin), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans CJK JP", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif }
+:root:lang(ja) { line-break: strict; word-break: auto-phrase }
+:lang(zh) :is(h1, h2, h3), :lang(ja) :is(h1, h2, h3) { letter-spacing: 0 }
+.lang-menu { position: relative }
+.lang-menu summary { gap: 6px; padding: 0 10px; font-size: 15px }
+.lang-menu summary:hover, .lang-panel a:hover { background: var(--hover) }
+.lang-panel { position: absolute; top: calc(100% + 8px); right: 0; z-index: 2; min-width: 200px; margin: 0; padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: var(--shadow); list-style: none }
+.lang-panel a, .foot-langs a { display: flex; align-items: center; min-height: 44px; text-decoration: none; white-space: nowrap }
+.lang-panel a { padding: 0 14px; border-radius: 8px; color: var(--text); font-size: 17px }
+.lang-panel a[aria-current] { background: var(--accent-soft); color: var(--accent); font-weight: 600 }
+.foot-langs ul { display: flex; flex-wrap: wrap; gap: 0 18px; margin: 0; padding: 0; list-style: none }
+.foot-langs a { color: var(--muted) }
+.foot-langs a[aria-current] { color: var(--text); font-weight: 600 }
+.lang-note { margin-top: 18px; color: var(--muted); font-size: 16px }
+.app-main .lang-note { flex: none; margin: 0; padding: 6px var(--gutter); border-bottom: 1px solid var(--line); background: var(--sky); font-size: 15px; text-align: center }
+
+@media (max-width: 759px) {
+  .lang-menu { position: static }
+  .lang-panel { top: 100%; left: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 8px; min-width: 0; padding: 8px var(--gutter) 16px; border-width: 0 0 1px; border-radius: 0; box-shadow: 0 20px 30px -22px rgba(28, 36, 48, 0.4) }
+  .lang-panel a { min-height: 52px; font-size: 19px }
+}
+
+@media (max-width: 480px) {
+  .bar { gap: 4px }
+  .lang-menu summary { gap: 4px; padding: 0 8px }
+}
+
 /* ===== stats dashboard ===== */
-/* /stats/ (analytics). Scoped to .stats-* classes, using the tokens above. Its strict CSP allows
-   only this stylesheet: no inline styles in the page (stats.js sets widths through CSSOM). */
+/* /stats/: .stats-* classes only. Its CSP allows only this file, no inline style (stats.js uses CSSOM). */
 .stats-page { --stats-bar: #33558f; --stats-bar-active: #1c335c; background: #f7f9fc }
 .stats-page .brand { margin-right: 4px }
 .stats-badge { margin-right: auto; padding: 3px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 15px; font-weight: 600 }

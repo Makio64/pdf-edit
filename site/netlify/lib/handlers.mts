@@ -16,7 +16,7 @@ import {
   MAX_BODY_BYTES,
 } from './http.mts'
 import { appendEvent, type StatsStore } from './store.mts'
-import { DL_SOURCES, EVENTS, isBot, osFromUA, validateEvent, type ValidEvent } from './validate.mts'
+import { DL_SOURCES, EVENTS, LANGS, isBot, osFromUA, validateEvent, type ValidEvent } from './validate.mts'
 
 export interface Release {
   version: string
@@ -103,7 +103,8 @@ function isPrefetch(req: Request): boolean {
 const VERSION_RE = EVENTS.dl.dims.v.re as RegExp
 
 /**
- * GET|HEAD /telecharger/mac?from=<src>: counts the download, then 302 to the DMG. Not counted: HEAD,
+ * GET|HEAD /telecharger/mac?from=<src>&l=<lang>: counts the download (with the language of the page the
+ * link was on, when it is one of LANGS), then 302 to the DMG. Not counted: HEAD,
  * bots, prefetches, browsers sending GPC or Do Not Track, and links marked `nc=1` (the « Ne plus
  * être compté » choice of the privacy page, which track.js adds to the download links).
  */
@@ -119,7 +120,9 @@ export async function handleDownload(req: Request, deps: DownloadDeps): Promise<
     const from = url.searchParams.get('from') ?? ''
     const src = (DL_SOURCES as readonly string[]).includes(from) ? from : 'other'
     const version = VERSION_RE.test(deps.release.version) ? deps.release.version : null
-    const event = validateEvent({ n: 'dl', v: version, src, os: osFromUA(ua) }, { serverSide: true })
+    const lang = url.searchParams.get('l') ?? ''
+    const l = (LANGS as readonly string[]).includes(lang) ? lang : null
+    const event = validateEvent({ n: 'dl', v: version, src, os: osFromUA(ua), l }, { serverSide: true })
     if (event) record(deps, event)
   }
   return empty(302, { location })

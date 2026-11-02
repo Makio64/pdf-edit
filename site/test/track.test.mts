@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { describe, it } from 'node:test'
-import { validateEvent } from '../netlify/lib/validate.mts'
+import { LANGS, PAGES, validateEvent } from '../netlify/lib/validate.mts'
 
 const SITE = 'https://pdf-edit-mac.netlify.app'
 const MAC = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15'
@@ -30,6 +30,10 @@ interface Setup {
   webdriver?: boolean
   attrs?: Record<string, string>
   page?: string
+  /** <html data-pv>: the French address of the page, in every language. */
+  pv?: string
+  /** <html lang>. */
+  lang?: string
   beaconOk?: boolean
   /** localStorage contents; `null`: storage throws (blocked). */
   storage?: Record<string, string> | null
@@ -75,7 +79,8 @@ async function load(setup: Setup = {}) {
   define('document', {
     referrer: setup.referrer ?? '',
     documentElement: {
-      dataset: setup.page ? { page: setup.page } : {},
+      dataset: { ...(setup.page ? { page: setup.page } : {}), ...(setup.pv ? { pv: setup.pv } : {}) },
+      lang: setup.lang ?? '',
       hasAttribute: (name: string) => name in attrs,
     },
     addEventListener: (type: string, fn: (e: unknown) => void) => (listeners[type] ??= []).push(fn),
@@ -139,7 +144,7 @@ describe('track.js page view', () => {
       assert.equal((pv as { p: string }).p, p, path)
       assert.ok(validateEvent(pv), `server accepts ${path}`)
     }
-    const [notFound] = await pageview({ url: `${SITE}/nope`, page: '404' })
+    const [notFound] = await pageview({ url: `${SITE}/nope`, page: '404', pv: '/404' })
     assert.equal((notFound as { p: string }).p, '/404')
   })
 
@@ -205,6 +210,79 @@ describe('track.js page view', () => {
     ]) {
       const { sent } = await load(setup)
       assert.equal(sent.length, 0, JSON.stringify(setup))
+    }
+  })
+})
+
+describe('track.js languages (data-pv and l)', () => {
+  it('names a page by its French address whatever its language, and sends the language', async () => {
+    const cases: [string, string, string, string][] = [
+      // url, <html data-pv>, <html lang>, l
+      [`${SITE}/`, '/', 'fr', 'fr'],
+      [`${SITE}/en-ligne/`, '/en-ligne/', 'fr', 'fr'],
+      [`${SITE}/en/`, '/', 'en', 'en'],
+      [`${SITE}/en/online/`, '/en-ligne/', 'en', 'en'],
+      [`${SITE}/es/preguntas/`, '/questions/', 'es', 'es'],
+      [`${SITE}/de/datenschutz/`, '/mentions-legales/', 'de', 'de'],
+      [`${SITE}/it/online/`, '/en-ligne/', 'it', 'it'],
+      [`${SITE}/pt/perguntas/`, '/questions/', 'pt', 'pt'],
+      [`${SITE}/zh/faq/`, '/questions/', 'zh-Hans', 'zh'],
+      [`${SITE}/ja/privacy/`, '/mentions-legales/', 'ja', 'ja'],
+      [`${SITE}/ja/nope`, '/404', 'fr', 'fr'],
+    ]
+    for (const [url, pv, lang, l] of cases) {
+      const [event] = await pageview({ url, pv, lang })
+      assert.deepEqual(event, { n: 'pv', p: pv, e: 1, r: 'direct', l, d: 'desktop', os: 'mac' }, url)
+      assert.ok(validateEvent(event), `server accepts ${url}`)
+    }
+  })
+
+  it('a visit from Google on the English home page', async () => {
+    const [event] = await pageview({ url: `${SITE}/en/`, pv: '/', lang: 'en', referrer: 'https://www.google.com/' })
+    assert.deepEqual(event, { n: 'pv', p: '/', e: 1, r: 'google', l: 'en', d: 'desktop', os: 'mac' })
+  })
+
+  it('without data-pv, names the page from its path as before (a translated path is other)', async () => {
+    const [app] = await pageview({ url: `${SITE}/app/edit.html`, lang: 'fr' })
+    assert.equal((app as { p: string }).p, '/app/edit.html')
+    assert.equal((app as { l: string }).l, 'fr')
+    const [translated] = await pageview({ url: `${SITE}/en/online/`, lang: 'en' })
+    assert.equal((translated as { p: string }).p, 'other')
+    assert.ok(validateEvent(translated))
+  })
+
+  it('sends no language the server would refuse (none, another one, a translation tool’s)', async () => {
+    for (const lang of ['', 'ko', 'EN', 'x-klingon']) {
+      const [event] = await pageview({ url: `${SITE}/`, pv: '/', lang })
+      assert.equal('l' in (event as object), false, lang)
+      assert.ok(validateEvent(event), `server accepts lang=${lang}`)
+    }
+  })
+
+  it('every language the beacon can send is one the server accepts', async () => {
+    const sent = new Set<string>()
+    for (const lang of LANGS) {
+      const [event] = await pageview({ url: `${SITE}/`, pv: '/', lang })
+      sent.add((event as { l: string }).l)
+      assert.ok(validateEvent(event), lang)
+    }
+    assert.deepEqual([...sent], [...LANGS])
+  })
+
+  it('every page template declares a data-pv the server accepts', () => {
+    const templates: [string, string][] = [
+      ['index.html', '/'],
+      ['en-ligne/index.html', '/en-ligne/'],
+      ['questions/index.html', '/questions/'],
+      ['mentions-legales/index.html', '/mentions-legales/'],
+      ['404.html', '/404'],
+    ]
+    for (const [file, pv] of templates) {
+      const html = readFileSync(new URL(`../src/${file}`, import.meta.url), 'utf8')
+      const m = /<html\b[^>]*\sdata-pv="([^"]*)"/.exec(html)
+      assert.equal(m?.[1], pv, file)
+      assert.ok((PAGES as readonly string[]).includes(pv), file)
+      assert.match(html, /<html lang="\{\{lang\}\}"/, `${file}: <html lang> comes from the dictionary`)
     }
   })
 })
