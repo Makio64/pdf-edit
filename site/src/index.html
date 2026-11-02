@@ -85,6 +85,7 @@
       <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></symbol>
       <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5" /><path d="M2 19h20" /></symbol>
       <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z" /></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" /></symbol>
       <symbol id="i-offline" viewBox="0 0 24 24"><path d="M12 19.5h.01M8.6 15.8a5 5 0 0 1 6.8 0M5 12.4a10 10 0 0 1 5-2.5M19 12.4a10 10 0 0 0-2-1.4M2 9a15 15 0 0 1 4.2-2.6M22 9a15 15 0 0 0-11.3-3.8M3 3l18 18" /></symbol>
     </svg>
 
@@ -194,6 +195,13 @@
               <h3>Sans Internet</h3>
               <p>Sauf, une seule fois, pour télécharger une police gratuite qui manque.</p>
             </li>
+            <!--IF_GITHUB-->
+            <li>
+              <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-code" /></svg></span>
+              <h3>Open source</h3>
+              <p>Le code est public, <a href="{{GITHUB_URL}}" data-track="gh" data-track-src="opensource">sur GitHub</a>.</p>
+            </li>
+            <!--/IF_GITHUB-->
           </ul>
         </div>
       </section>

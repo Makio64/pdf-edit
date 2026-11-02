@@ -401,22 +401,32 @@ else
     fi
   done
 
+  # Panic messages embed source paths. They show as ~/… and ./… instead of this Mac's home folder
+  # and checkout, which carry the developer's user name (the last matching prefix wins).
+  # CARGO_ENCODED_RUSTFLAGS (0x1f-separated) keeps paths with spaces intact.
+  US=$'\x1f'
+  REMAP="--remap-path-prefix=$HOME=~${US}--remap-path-prefix=$REPO=."
+
   slices=()
   for a in "${ARCHS[@]}"; do
     triple="$(triple_for "$a")"
     info "cargo build --profile mac-app --locked -p p2d-cli --target $triple (macOS $(min_macos_for "$a") or later)"
     if [[ "$a" == x86_64 ]]; then
-      # RUSTFLAGS replaces .cargo/config.toml's target-cpu=x86-64-v3 (AVX2, Haswell and later),
+      # These flags replace .cargo/config.toml's target-cpu=x86-64-v3 (AVX2, Haswell and later),
       # which would crash on older Intel Macs (the 2013 Mac Pro runs macOS 12 without AVX2).
       # x86-64-v2 runs on every Intel Mac that runs macOS 11.
-      env -u CARGO_ENCODED_RUSTFLAGS \
+      env -u RUSTFLAGS \
         MACOSX_DEPLOYMENT_TARGET="$(min_macos_for x86_64)" \
-        RUSTFLAGS="-C target-cpu=x86-64-v2" \
+        CARGO_ENCODED_RUSTFLAGS="-C${US}target-cpu=x86-64-v2${US}$REMAP" \
         cargo build --profile mac-app --locked -p p2d-cli --target "$triple"
     else
-      env -u CARGO_ENCODED_RUSTFLAGS -u RUSTFLAGS \
+      env -u RUSTFLAGS \
         MACOSX_DEPLOYMENT_TARGET="$(min_macos_for arm64)" \
+        CARGO_ENCODED_RUSTFLAGS="$REMAP" \
         cargo build --profile mac-app --locked -p p2d-cli --target "$triple"
+    fi
+    if strings -a "$TARGET_DIR/$triple/mac-app/p2d-cli" | grep -qF -e "$HOME/" -e "$REPO/"; then
+      die "the $a binary still contains paths of this Mac ($HOME or $REPO): check the --remap-path-prefix flags"
     fi
     slice="$TARGET_DIR/$triple/mac-app/p2d-cli"
     [[ -f "$slice" ]] || die "cargo did not produce $slice"

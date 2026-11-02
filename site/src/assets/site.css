@@ -568,7 +568,7 @@ code {
 /* Home: privacy */
 .points {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: clamp(28px, 4vw, 48px);
   margin: 0;
   padding: 0;
