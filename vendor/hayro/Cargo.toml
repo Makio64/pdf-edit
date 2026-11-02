@@ -1,0 +1,31 @@
+# Vendored copy of `hayro` (renderer only) from https://github.com/LaurenzV/hayro at rev af0dc88,
+# patched in via `[patch]` in the workspace manifest. Local change: `RenderSettings::skip_text`
+# (render a page's graphics without its text, used as the background of `Fidèle` documents).
+[package]
+name = "hayro"
+version = "0.8.0"
+description = "A rasterizer for PDF files."
+edition = "2024"
+authors = ["Laurenz Stampfl <laurenz.stampfl@gmail.com>"]
+repository = "https://github.com/LaurenzV/hayro"
+license = "Apache-2.0 OR MIT"
+publish = false
+
+[dependencies]
+hayro-interpret = { git = "https://github.com/LaurenzV/hayro", rev = "af0dc88aa59064201b9259d348e52445cf7744fd", default-features = false }
+kurbo = { version = "0.13.0" }
+image = { version = "0.25", default-features = false, features = ["png"] }
+bytemuck = { version = "1", features = ["bytemuck_derive"] }
+vello_cpu = { version = "0.3", default-features = false, features = ["std", "png", "u8_pipeline"] }
+pic-scale = { version = "0.7.9", default-features = false }
+rustc-hash = { version = "2" }
+fearless_simd = "1.0.0"
+
+[features]
+default = ["embed-fonts", "embed-cmaps", "simd"]
+embed-fonts = ["hayro-interpret/embed-fonts"]
+# Embed the 61 predefined cmaps into the binary. Adds about ~250KB of brotli-encoded data.
+embed-cmaps = ["hayro-interpret/embed-cmaps"]
+logging = ["hayro-interpret/logging"]
+# Enable SIMD-accelerated image resizing in pic-scale.
+simd = ["pic-scale/neon", "pic-scale/rdm", "pic-scale/sse", "pic-scale/avx"]

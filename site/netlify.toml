@@ -1,0 +1,16 @@
+# PDF Edit website on Netlify (project "pdf-edit-mac"). This folder, site/, is the base directory.
+#
+# No build command: the site is assembled on a Mac by scripts/build-web.sh (it needs the Rust/WASM
+# toolchain and the release DMG), then uploaded with the Netlify CLI:
+#   scripts/build-web.sh --ui-rev HEAD --dmg dist/PDF-Edit-<version>.dmg
+#   cd site && netlify deploy --prod --dir dist --functions netlify/functions
+# --functions is needed: from site/ inside the git repository the CLI otherwise looks for
+# <repo>/netlify/functions and deploys without functions (see docs/WEB.md, « Deploying »).
+# The CLI bundles netlify/functions/ at deploy time. See docs/WEB.md.
+
+[build]
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"

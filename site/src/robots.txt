@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /stats/
+Disallow: /api/
+Disallow: /telecharger/
+Disallow: /downloads/
+
+Sitemap: {{SITE_URL}}/sitemap.xml

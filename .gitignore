@@ -1,0 +1,31 @@
+/target/
+/dist/
+/qa/corpus/private/
+/qa/corpus/public/*.pdf
+/qa/reports/
+/qa/pages-matrix/out/
+/extension/pkg/
+/extension/dist/
+/node_modules/
+.DS_Store
+*.pages
+*.docx
+*.pdf
+!qa/fixtures/**/*.pdf
+/site/dist/
+/site/node_modules/
+/site/.netlify/
+# The Netlify CLI, run from site/, may treat the repository root as the project folder.
+/.netlify/
+/netlify/
+/site/netlify/lib/release.generated.mts
+/site/.env
+# Output of `p2d-cli convert in.pdf -o` when the output name is forgotten: never commit it.
+/-o
+# Secrets that must never be committed (signing, notarization, site keys).
+.env
+.env.*
+*.p8
+*.p12
+*.cer
+*.mobileprovision

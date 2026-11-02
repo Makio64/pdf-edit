@@ -1,0 +1,22 @@
+{
+  "name": "pdf-edit-site",
+  "private": true,
+  "description": "PDF Edit public website: static pages plus the cookieless analytics functions",
+  "type": "module",
+  "license": "MIT OR Apache-2.0",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test 'test/*.test.mts'",
+    "shots": "node shots/capture.js && python3 shots/convert.py",
+    "shots:convert": "python3 shots/convert.py"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.7"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^6.0.3",
+    "puppeteer-core": "^25.16.0"
+  }
+}

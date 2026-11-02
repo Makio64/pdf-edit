@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Template for « PDF Edit.app/Contents/Info.plist ».
+  scripts/build-macos.sh replaces @VERSION@ (Cargo.toml [workspace.package] version) and
+  @BUILD@ (git commit count). The French texts shown by macOS live in fr.lproj/InfoPlist.strings:
+  keep both files in step.
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>fr</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>fr</string>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>PDF Edit</string>
+	<key>CFBundleIdentifier</key>
+	<string>fr.doc2pdf.modifier-mes-pdf</string>
+	<key>CFBundleName</key>
+	<string>PDF Edit</string>
+	<key>CFBundleDisplayName</key>
+	<string>PDF Edit</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>@VERSION@</string>
+	<key>CFBundleVersion</key>
+	<string>@BUILD@</string>
+	<!-- macOS 11: the PDF editor places its lines with CSS container units (Safari 16, which
+	     macOS 11 and later get through Software Update). -->
+	<key>LSMinimumSystemVersion</key>
+	<string>11.0</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.productivity</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2026 Makio</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+
+	<!-- PDF files list the app under « Ouvrir avec ». Alternate: Preview stays the default PDF app. -->
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Document PDF</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- Shown by macOS when it asks for permission. Same texts in fr.lproj/InfoPlist.strings. -->
+	<key>NSAppleEventsUsageDescription</key>
+	<string>PDF Edit demande à Pages de créer et d’ouvrir vos documents modifiables.</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>PDF Edit enregistre vos nouveaux fichiers sur le Bureau quand vous le choisissez.</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>PDF Edit enregistre vos nouveaux fichiers dans le dossier Téléchargements quand vous le choisissez.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>PDF Edit enregistre vos nouveaux fichiers dans le dossier Documents quand vous le choisissez.</string>
+	<key>NSRemovableVolumesUsageDescription</key>
+	<string>PDF Edit enregistre vos nouveaux fichiers sur une clé USB ou un disque externe quand vous le choisissez.</string>
+	<key>NSNetworkVolumesUsageDescription</key>
+	<string>PDF Edit enregistre vos nouveaux fichiers sur un disque du réseau quand vous le choisissez.</string>
+</dict>
+</plist>

@@ -1,0 +1,24 @@
+# Third-Party Notices & Attributions
+
+This project (« PDF Edit ») is dual-licensed under `MIT OR Apache-2.0`.
+
+## Attributions for Ported Algorithms & Embedded Resources
+
+1. **pdf2docx (MIT License, >= 0.5.12)**
+   - Layout reconstruction heuristics (section/column splitting, lattice & stream table reconstruction, line spacing and paragraph joining rules) are cleanly re-implemented in Rust from MIT-licensed `pdf2docx` (>= 0.5.12, relicensed 2026-03-09).
+   - Copyright (c) 2020-2026 Artifex Software, Inc. and dothinking.
+
+2. **Layout heuristics re-implemented in Rust, after these projects**
+   - exactdoc (Apache-2.0, https://github.com/ebt55/exactdoc): baseline-anchored paragraph spacing, wrap-prediction calibration, soft page boundaries.
+   - PdfPig (Apache-2.0, https://github.com/UglyToad/PdfPig), Docling (MIT, https://github.com/docling-project/docling), Camelot (MIT, https://github.com/camelot-dev/camelot) and pdfplumber (MIT, https://github.com/jsvine/pdfplumber): gap clustering, XY-cut and reading order.
+
+3. **Independent JPEG Group (IJG) Credit**
+   - This software is based in part on the work of the Independent JPEG Group (via the `jpeg-encoder` crate, licensed under `(MIT OR Apache-2.0) AND IJG`).
+
+4. **Adobe CMap resources and Foxit standard-14 substitute fonts**
+   - Shipped inside `hayro`: the CMap resources (BSD-3-Clause, Adobe Systems Incorporated) and the Foxit substitute fonts (BSD-3-Clause) keep their notices, next to them in the hayro sources.
+
+5. **hayro renderer (MIT OR Apache-2.0), vendored**
+   - `vendor/hayro` is a copy of the `hayro` crate (https://github.com/LaurenzV/hayro, rev `af0dc88`) with one
+     local change (`RenderSettings::skip_text`), patched in from the workspace manifest. Copyright (c) The Hayro
+     Authors; its `LICENSE-MIT` and `LICENSE-APACHE` files are kept next to the sources.

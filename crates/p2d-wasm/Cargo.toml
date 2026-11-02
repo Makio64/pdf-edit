@@ -1,0 +1,18 @@
+[package]
+name = "p2d-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+p2d-ir = { workspace = true }
+p2d-pdf = { workspace = true }
+p2d-layout = { workspace = true }
+p2d-writers = { workspace = true }
+p2d-engine = { workspace = true }
+wasm-bindgen = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

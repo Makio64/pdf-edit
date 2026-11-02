@@ -1,0 +1,67 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/p2d-ir",
+  "crates/p2d-pdf",
+  "crates/p2d-layout",
+  "crates/p2d-ocr",
+  "crates/p2d-writers",
+  "crates/p2d-engine",
+  "crates/p2d-wasm",
+  "crates/p2d-cli",
+]
+exclude = ["vendor/hayro"]
+
+[workspace.package]
+version = "1.2.1"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+authors = ["Makio"]
+
+[workspace.dependencies]
+p2d-ir = { path = "crates/p2d-ir" }
+p2d-pdf = { path = "crates/p2d-pdf" }
+p2d-layout = { path = "crates/p2d-layout" }
+p2d-ocr = { path = "crates/p2d-ocr" }
+p2d-writers = { path = "crates/p2d-writers" }
+p2d-engine = { path = "crates/p2d-engine" }
+
+hayro = { git = "https://github.com/LaurenzV/hayro", rev = "af0dc88aa59064201b9259d348e52445cf7744fd" }
+hayro-interpret = { git = "https://github.com/LaurenzV/hayro", rev = "af0dc88aa59064201b9259d348e52445cf7744fd" }
+hayro-syntax = { git = "https://github.com/LaurenzV/hayro", rev = "af0dc88aa59064201b9259d348e52445cf7744fd" }
+kurbo = "0.13.1"
+skrifa = "0.46.0"
+pdf-writer = "0.15.0"
+quick-xml = "0.42.0"
+miniz_oxide = "0.9.1"
+crc32fast = "1.5.2"
+png = "0.18.1"
+jpeg-encoder = "0.7.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+libm = "0.2"
+strsim = "0.11.1"
+wasm-bindgen = "=0.2.129"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+# The shipped Mac app (scripts/build-macos.sh): 18 % smaller than `release` at the same speed.
+# Panics still log their message and source line; backtraces lose function names.
+[profile.mac-app]
+inherits = "release"
+lto = "fat"
+strip = "symbols"
+
+[profile.release-wasm]
+inherits = "release"
+opt-level = "s"
+lto = true
+panic = "abort"
+strip = "symbols"
+
+# Local renderer patch: adds `RenderSettings::skip_text` (see vendor/hayro/Cargo.toml).
+[patch."https://github.com/LaurenzV/hayro"]
+hayro = { path = "vendor/hayro" }

@@ -1,0 +1,27 @@
+[package]
+name = "p2d-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+p2d-ir = { workspace = true }
+p2d-pdf = { workspace = true }
+p2d-layout = { workspace = true }
+p2d-ocr = { workspace = true }
+p2d-writers = { workspace = true }
+p2d-engine = { workspace = true }
+pdf-writer = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+strsim = { workspace = true }
+png = { workspace = true }
+
+# The Mac app's window (`app_window`): system web view, menus and dialogs.
+[target.'cfg(target_os = "macos")'.dependencies]
+wry = { version = "0.57", default-features = false }
+tao = { version = "0.37", default-features = false, features = ["rwh_06"] }
+muda = { version = "0.20", default-features = false }
+rfd = { version = "0.16", default-features = false }
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSAppleEventDescriptor", "NSAppleEventManager"] }

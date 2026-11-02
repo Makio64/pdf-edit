@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF Edit</title>
+    <link rel="stylesheet" href="drop.css" />
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true"><div id="progressBar" class="progress-bar"></div></div>
+
+    <header class="top">
+      <button id="backBtn" type="button" class="back" hidden>← Retour</button>
+      <span class="brand">PDF Edit</span>
+      <span id="stepCount" class="step-count">Étape 1 sur 3</span>
+    </header>
+
+    <main class="stage">
+      <!-- 1. Choose the PDF -->
+      <section id="stepFile" class="screen">
+        <h1 class="question" tabindex="-1"><span class="q-num">1 →</span> Quel PDF voulez-vous modifier ?</h1>
+        <div
+          id="dropZone"
+          class="drop"
+          tabindex="0"
+          role="button"
+          aria-label="Choisir ou glisser un fichier PDF"
+        >
+          <button id="chooseFileBtn" type="button" class="btn btn-primary btn-xl">Choisir un PDF…</button>
+          <span class="drop-or">ou glissez-le ici</span>
+        </div>
+        <input id="fileInput" type="file" accept=".pdf,application/pdf" hidden />
+        <p id="fileError" class="error" hidden>Ce fichier n’est pas un PDF. Choisissez un fichier qui finit par « .pdf ».</p>
+
+        <details id="samplesBox" class="samples" hidden>
+          <summary>Pas de PDF sous la main ? Essayer avec un exemple</summary>
+          <div class="sample-list">
+            <button type="button" class="sample-btn" data-sample="21_avis_impot_complexe.pdf">Avis d’impôt</button>
+            <button type="button" class="sample-btn" data-sample="01_lettre_assurance.pdf">Courrier d’assurance</button>
+            <button type="button" class="sample-btn" data-sample="dropbox_facture.pdf">Facture</button>
+            <button type="button" class="sample-btn" data-sample="dropbox_devis.pdf">Devis</button>
+            <button type="button" class="sample-btn" data-sample="dropbox_attestation.pdf">Attestation</button>
+            <button type="button" class="sample-btn" data-sample="24_bulletin_municipal_2colonnes.pdf">Bulletin municipal</button>
+            <button type="button" class="sample-btn" data-sample="dropbox_cours_1.pdf">Cours, 7 pages</button>
+            <button type="button" class="sample-btn" data-sample="dropbox_cours_2.pdf">Autre cours, 7 pages</button>
+          </div>
+        </details>
+      </section>
+
+      <!-- 2. Choose what to do with it -->
+      <section id="stepChoice" class="screen" hidden>
+        <h1 class="question" tabindex="-1"><span class="q-num">2 →</span> Que voulez-vous faire ?</h1>
+        <p class="file-chip">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+            <path d="M14 3v5h5" />
+          </svg>
+          <span id="sourceName"></span>
+        </p>
+        <div class="options">
+          <button id="editOption" type="button" class="option" data-action="edit">
+            <span class="option-title">Corriger quelques mots</span>
+            <span class="option-text">Directement dans le PDF. Le reste ne bouge pas.</span>
+          </button>
+          <button type="button" class="option" data-action="pages">
+            <span class="option-title">Modifier dans Pages</span>
+            <span class="option-text">Pour retravailler tout le document.</span>
+          </button>
+          <button type="button" class="option" data-action="docx">
+            <span class="option-title">Modifier dans Word</span>
+            <span class="option-text">Un fichier Word (.docx), pour Word ou pour l’envoyer.</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. Where to save the new file -->
+      <section id="stepPlace" class="screen" hidden>
+        <h1 class="question" tabindex="-1"><span class="q-num">3 →</span> Où enregistrer le nouveau fichier ?</h1>
+        <div class="options">
+          <button type="button" class="option option-icon" data-place="desktop">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="12" rx="2" />
+              <path d="M9 20h6M12 16v4" />
+            </svg>
+            <span class="option-title">Sur le Bureau</span>
+            <span class="option-text">Le fichier apparaît directement sur l’écran du Mac.</span>
+          </button>
+          <button type="button" class="option option-icon" data-place="downloads">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4v11M7 10l5 5 5-5" />
+              <path d="M5 19h14" />
+            </svg>
+            <span class="option-title">Dans Téléchargements</span>
+            <span class="option-text">Avec les fichiers reçus par e-mail ou sur Internet.</span>
+          </button>
+          <button id="chosenOption" type="button" class="option option-icon" data-place="chosen" hidden>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            </svg>
+            <span id="chosenTitle" class="option-title"></span>
+            <span id="chosenText" class="option-text"></span>
+          </button>
+          <button id="pickFolderBtn" type="button" class="option option-icon">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <path d="M12 10v6M9 13h6" />
+            </svg>
+            <span id="pickFolderTitle" class="option-title">Choisir un dossier…</span>
+            <span id="pickFolderText" class="option-text">Une fenêtre s’ouvre pour choisir où le ranger.</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- After step 3: the result, and where the new file is -->
+      <section id="stepResult" class="screen" hidden>
+        <div id="busyView" class="view">
+          <div id="busySpinner" class="spinner" aria-hidden="true"></div>
+          <h1 id="busyTitle" class="question" tabindex="-1">Préparation de votre document…</h1>
+          <p id="busyLead" class="lead">Vous n’avez rien à faire. Un long document peut prendre une minute.</p>
+          <!-- What is being done, step by step (from /api/progress) -->
+          <ol id="busySteps" class="steps" hidden></ol>
+        </div>
+
+        <div id="passwordView" class="view" hidden>
+          <h1 class="question" tabindex="-1"><span class="q-num">3 →</span> Ce PDF est protégé par un mot de passe.</h1>
+          <p class="lead">Tapez-le pour continuer.</p>
+          <div class="row">
+            <input id="passwordInput" type="password" class="input" placeholder="Mot de passe" autocomplete="off" />
+            <button id="submitPasswordBtn" type="button" class="btn btn-primary btn-lg">Continuer</button>
+          </div>
+          <p id="passwordError" class="error" hidden>Ce mot de passe ne convient pas. Réessayez.</p>
+        </div>
+
+        <div id="errorView" class="view" hidden>
+          <h1 id="errorTitle" class="question" tabindex="-1">Ce PDF n’a pas pu être ouvert.</h1>
+          <p id="errorText" class="lead"></p>
+          <button id="errorRestartBtn" type="button" class="btn btn-primary btn-lg" data-restart>Choisir un autre PDF</button>
+          <button id="otherPlaceBtn" type="button" class="btn btn-primary btn-lg" hidden>Choisir un autre endroit</button>
+        </div>
+
+        <div id="doneView" class="view done" hidden>
+          <span class="done-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          </span>
+          <h1 class="question" tabindex="-1">C’est prêt !</h1>
+          <p id="doneText" class="lead"></p>
+          <div id="fileCard" class="file-card">
+            <span class="file-icon" aria-hidden="true"><span id="savedExt" class="file-ext"></span></span>
+            <div class="file-info">
+              <strong id="savedName" class="file-name"></strong>
+              <span class="place">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>
+                <span id="savedPlace">Dans <b>Téléchargements</b> › <b>Documents modifiables</b></span>
+              </span>
+            </div>
+          </div>
+          <div class="done-actions">
+            <button id="showInFinderBtn" type="button" class="btn btn-primary btn-lg">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+              Montrer dans le dossier
+            </button>
+            <button id="openAgainBtn" type="button" class="btn btn-lg">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14 4h6v6" />
+                <path d="M20 4l-9 9" />
+                <path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" />
+              </svg>
+              Ouvrir le fichier
+            </button>
+          </div>
+          <p class="done-links">
+            <button type="button" class="link" data-restart>Modifier un autre PDF</button>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="drop-overlay" aria-hidden="true"><p>Déposez le PDF ici</p></div>
+
+    <script type="module" src="drop.js"></script>
+  </body>
+</html>

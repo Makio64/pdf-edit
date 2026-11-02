@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr" data-page="en-ligne">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF Edit en ligne — modifier un PDF gratuitement</title>
+    <meta name="description" content="Corrigez quelques mots d’un PDF ou transformez-le en Word, directement dans le navigateur. Gratuit, sans compte : votre PDF reste sur votre ordinateur." />
+    <link rel="canonical" href="{{SITE_URL}}/en-ligne/" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PDF Edit" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="PDF Edit en ligne — modifier un PDF dans le navigateur" />
+    <meta property="og:description" content="Corrigez quelques mots d’un PDF ou transformez-le en Word, directement dans le navigateur. Gratuit, sans compte : votre PDF reste sur votre ordinateur." />
+    <meta property="og:url" content="{{SITE_URL}}/en-ligne/" />
+    <meta property="og:image" content="{{SITE_URL}}/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PDF Edit : l’écran « Que voulez-vous faire ? » et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PDF Edit en ligne — modifier un PDF dans le navigateur" />
+    <meta name="twitter:description" content="Corrigez quelques mots d’un PDF ou transformez-le en Word, directement dans le navigateur. Gratuit, sans compte : votre PDF reste sur votre ordinateur." />
+    <meta name="twitter:image" content="{{SITE_URL}}/og.png" />
+    <meta name="twitter:image:alt" content="PDF Edit : l’écran « Que voulez-vous faire ? » et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word." />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PDF Edit en ligne",
+        "url": "{{SITE_URL}}/en-ligne/",
+        "description": "La version en ligne de PDF Edit : corriger quelques mots d’un PDF ou le transformer en document Word (.docx), directement dans le navigateur, sans rien envoyer.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Tous (navigateur web)",
+        "browserRequirements": "Nécessite un navigateur récent avec WebAssembly : Chrome, Edge, Safari ou Firefox.",
+        "inLanguage": "fr",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "author": { "@type": "Organization", "name": "Makio" },
+        "image": "{{SITE_URL}}/og.png"
+      }
+    </script>
+    <script type="module" src="/assets/track.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/" aria-label="PDF Edit, accueil"><img src="/favicon.svg" alt="" width="32" height="32" /><span class="brand-name">PDF Edit</span></a>
+        <nav aria-label="Menu principal">
+          <ul class="nav-links">
+            <li class="nav-home"><a href="/">Accueil</a></li>
+            <li><a href="/en-ligne/" aria-current="page">Version en ligne</a></li>
+            <li><a href="/questions/">Questions</a></li>
+            <li><a href="/mentions-legales/">Confidentialité</a></li>
+          </ul>
+          <details class="nav-menu">
+            <summary><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg><span class="menu-label">Menu</span></summary>
+            <ul class="nav-panel">
+              <li><a href="/">Accueil</a></li>
+              <li><a href="/en-ligne/" aria-current="page">Version en ligne</a></li>
+              <li><a href="/questions/">Questions</a></li>
+              <li><a href="/mentions-legales/">Confidentialité</a></li>
+            </ul>
+          </details>
+        </nav>
+        <a class="btn btn-primary btn-sm header-dl" href="{{DOWNLOAD_URL}}?from=header"><span>Télécharger<span class="dl-mac"> pour Mac</span></span></a>
+      </div>
+    </header>
+
+    <main id="contenu" class="app-main">
+      <h1 class="sr-only">PDF Edit en ligne</h1>
+      <noscript>
+        <p>La version en ligne a besoin de JavaScript. <a href="/app/">Ouvrir PDF Edit en ligne</a></p>
+      </noscript>
+      <iframe class="app-frame" src="/app/" title="PDF Edit en ligne : modifier un PDF dans le navigateur"></iframe>
+    </main>
+  </body>
+</html>

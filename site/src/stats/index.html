@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr" data-no-pageview>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Statistiques — PDF Edit</title>
+    <meta name="description" content="Tableau de bord privé de PDF Edit : comptes anonymes de visites, de téléchargements et d’utilisation de l’app en ligne." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script type="module" src="/assets/stats.js"></script>
+  </head>
+  <body class="stats-page">
+    <a class="skip" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/" aria-label="PDF Edit, accueil"><img src="/favicon.svg" alt="" width="32" height="32" /><span class="brand-name">PDF Edit</span></a>
+        <span class="stats-badge">Statistiques</span>
+        <button class="btn btn-sm" type="button" id="logout" hidden>Se déconnecter</button>
+      </div>
+    </header>
+
+    <main id="contenu" class="wrap stats-main">
+      <noscript>
+        <p class="card">Ce tableau de bord a besoin de JavaScript.</p>
+      </noscript>
+
+      <!-- Asked once; the key then stays in this browser until « Se déconnecter ». -->
+      <section id="login" class="card stats-login" aria-labelledby="login-title" hidden>
+        <h1 id="login-title">Statistiques privées</h1>
+        <p class="muted">Entrez la clé d’accès (la valeur de <code>STATS_KEY</code> dans Netlify). Elle reste enregistrée dans ce navigateur jusqu’à ce que vous vous déconnectiez.</p>
+        <form id="login-form" class="stats-login-form" novalidate>
+          <label for="key">Clé d’accès</label>
+          <input id="key" name="key" class="input" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" required />
+          <p id="login-error" class="stats-error" role="alert" hidden></p>
+          <button class="btn btn-primary btn-lg" type="submit" id="login-submit">Afficher les statistiques</button>
+        </form>
+      </section>
+
+      <section id="dashboard" class="stats-dashboard" aria-labelledby="dash-title" hidden>
+        <div class="stats-head">
+          <div>
+            <h1 id="dash-title" tabindex="-1">Statistiques</h1>
+            <p id="range-label" class="muted stats-range-label"></p>
+          </div>
+          <div class="stats-seg" id="ranges" role="group" aria-label="Période">
+            <button type="button" data-days="7" aria-pressed="false">7 j</button>
+            <button type="button" data-days="30" aria-pressed="true">30 j</button>
+            <button type="button" data-days="90" aria-pressed="false">90 j</button>
+            <button type="button" data-days="365" aria-pressed="false">1 an</button>
+            <button type="button" data-days="all" aria-pressed="false">Tout</button>
+          </div>
+        </div>
+
+        <div id="status" class="stats-status" role="status" aria-live="polite" hidden>
+          <p id="status-text"></p>
+          <button class="btn btn-sm" type="button" id="retry" hidden>Réessayer</button>
+        </div>
+
+        <div id="content" class="stats-content">
+          <div id="kpis" class="stats-kpis"></div>
+
+          <section class="card stats-chart-card" aria-labelledby="chart-title">
+            <div class="stats-chart-head">
+              <h2 id="chart-title" class="stats-h2">Par jour</h2>
+              <div class="stats-seg stats-seg-sm" id="metrics" role="group" aria-label="Chiffre affiché">
+                <button type="button" data-metric="visits" aria-pressed="true">Visites</button>
+                <button type="button" data-metric="dl" aria-pressed="false">Téléchargements</button>
+                <button type="button" data-metric="conv" aria-pressed="false">Conversions</button>
+                <button type="button" data-metric="esave" aria-pressed="false">Corrections</button>
+              </div>
+            </div>
+            <p id="chart-sub" class="muted stats-chart-sub"></p>
+            <div id="chart" class="stats-chart"></div>
+            <details class="stats-days">
+              <summary>Voir les chiffres jour par jour</summary>
+              <div id="day-table" class="stats-scroll"></div>
+            </details>
+          </section>
+
+          <div id="tables"></div>
+
+          <p class="muted stats-note">
+            Comptes anonymes et agrégés : ni cookie, ni identifiant, ni adresse IP, rien sur les documents. Les robots, les
+            navigateurs qui demandent à ne pas être suivis (GPC, «&nbsp;Do Not Track&nbsp;») et ceux dont le visiteur a choisi
+            « Ne plus être compté » ne sont pas comptés. Les jours sont en heure UTC.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

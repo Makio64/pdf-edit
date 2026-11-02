@@ -1,0 +1,67 @@
+# Response headers for the static files of the PDF Edit website (Netlify _headers syntax).
+# Functions (/api/e, /api/stats, /telecharger/mac) set their own headers: these do not apply to them.
+# Each header name is set by one rule per path only: Netlify joins the values of every rule that
+# matches, so two Cache-Control rules on one path would give "max-age=3600,max-age=...".
+# Content-Security-Policy only on /stats/ for now (it holds the dashboard key): see docs/WEB.md,
+# « Security headers ».
+
+# X-Frame-Options SAMEORIGIN: /en-ligne/ shows the app (/app/) in a frame of the same site, and
+# no other site can frame any page. Never "frame-ancestors 'none'" or DENY on /app/*.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# The in-browser app: only ever shown inside /en-ligne/, which is the page search engines list
+# (the pages also say noindex and give /en-ligne/ as canonical address).
+/app/*
+  X-Robots-Tag: noindex
+
+# The in-browser engine: streaming compilation needs the exact WebAssembly type.
+/app/pkg/*.wasm
+  Content-Type: application/wasm
+
+# Private dashboard and the disk image: never in search results. The dashboard keeps STATS_KEY in
+# localStorage and loads only its own script and stylesheet, so it gets a strict policy (styles
+# are set through CSSOM only; form-action 'none' stops a GET ?key=… if the script failed).
+/stats/*
+  X-Robots-Tag: noindex, nofollow
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+/downloads/*
+  X-Robots-Tag: noindex
+
+/downloads/*.dmg
+  Content-Type: application/x-apple-diskimage
+  Content-Disposition: attachment
+
+# Shared styles, scripts, screenshots and icons: one hour in the browser (their names do not
+# change between releases, so not longer).
+/assets/*
+  Cache-Control: public, max-age=3600
+
+/img/*
+  Cache-Control: public, max-age=3600
+
+/favicon.svg
+  Cache-Control: public, max-age=3600
+
+/favicon-32.png
+  Cache-Control: public, max-age=3600
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=3600
+
+/icon-192.png
+  Cache-Control: public, max-age=3600
+
+/icon-512.png
+  Cache-Control: public, max-age=3600
+
+/og.png
+  Cache-Control: public, max-age=3600
+
+/site.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=3600

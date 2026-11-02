@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modifier un PDF sur Mac, gratuit et simple — PDF Edit</title>
+    <meta name="description" content="Corrigez un PDF ou convertissez-le en Word ou en Pages sur Mac. Gratuit, sans inscription, et vos documents restent sur votre ordinateur." />
+    <link rel="canonical" href="{{SITE_URL}}/" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PDF Edit" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="PDF Edit — modifier un PDF sur Mac, simplement" />
+    <meta property="og:description" content="Corrigez quelques mots dans un PDF, ou ouvrez-le dans Word ou Pages. Gratuit, sans inscription, et vos documents restent chez vous." />
+    <meta property="og:url" content="{{SITE_URL}}/" />
+    <meta property="og:image" content="{{SITE_URL}}/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PDF Edit : l’écran « Que voulez-vous faire ? » et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PDF Edit — modifier un PDF sur Mac, simplement" />
+    <meta name="twitter:description" content="Corrigez quelques mots dans un PDF, ou ouvrez-le dans Word ou Pages. Gratuit, sans inscription, et vos documents restent chez vous." />
+    <meta name="twitter:image" content="{{SITE_URL}}/og.png" />
+    <meta name="twitter:image:alt" content="PDF Edit : l’écran « Que voulez-vous faire ? » et ses trois choix, corriger quelques mots, modifier dans Pages ou modifier dans Word." />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PDF Edit",
+        "alternateName": "Modifier mes PDF",
+        "description": "Application gratuite pour Mac : corriger quelques mots directement dans un PDF, ou le transformer en document Word ou Pages, sans inscription et sans envoyer vos documents sur Internet.",
+        "url": "{{SITE_URL}}/",
+        "operatingSystem": "macOS 11 ou ultérieur",
+        "applicationCategory": "UtilitiesApplication",
+        "softwareVersion": "{{VERSION}}",
+        "fileSize": "{{DMG_SIZE}}",
+        "downloadUrl": "{{SITE_URL}}{{DOWNLOAD_URL}}",
+        "datePublished": "{{RELEASE_DATE}}",
+        "inLanguage": "fr",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "author": { "@type": "Organization", "name": "Makio" },
+        "screenshot": [
+          "{{SITE_URL}}/img/app-2-que-faire.webp",
+          "{{SITE_URL}}/img/app-corriger-dans-le-pdf.webp",
+          "{{SITE_URL}}/img/app-4-pret.webp"
+        ],
+        "image": "{{SITE_URL}}/og.png"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "PDF Edit",
+        "url": "{{SITE_URL}}/",
+        "inLanguage": "fr"
+      }
+    </script>
+    <!--IF_GITHUB-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "PDF Edit",
+        "codeRepository": "{{GITHUB_URL}}",
+        "programmingLanguage": "Rust",
+        "license": ["https://opensource.org/licenses/MIT", "https://www.apache.org/licenses/LICENSE-2.0"],
+        "author": { "@type": "Organization", "name": "Makio" },
+        "targetProduct": { "@type": "SoftwareApplication", "name": "PDF Edit" }
+      }
+    </script>
+    <!--/IF_GITHUB-->
+    <script type="module" src="/assets/track.js"></script>
+    <script type="module" src="/assets/tour.js"></script>
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 19.5h14" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></symbol>
+      <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5" /><path d="M2 19h20" /></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z" /></symbol>
+      <symbol id="i-offline" viewBox="0 0 24 24"><path d="M12 19.5h.01M8.6 15.8a5 5 0 0 1 6.8 0M5 12.4a10 10 0 0 1 5-2.5M19 12.4a10 10 0 0 0-2-1.4M2 9a15 15 0 0 1 4.2-2.6M22 9a15 15 0 0 0-11.3-3.8M3 3l18 18" /></symbol>
+    </svg>
+
+    <a class="skip" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href="/" aria-label="PDF Edit, accueil"><img src="/favicon.svg" alt="" width="32" height="32" /><span class="brand-name">PDF Edit</span></a>
+        <nav aria-label="Menu principal">
+          <ul class="nav-links">
+            <li class="nav-home"><a href="/" aria-current="page">Accueil</a></li>
+            <li><a href="/en-ligne/">Version en ligne</a></li>
+            <li><a href="/questions/">Questions</a></li>
+            <li><a href="/mentions-legales/">Confidentialité</a></li>
+          </ul>
+          <details class="nav-menu">
+            <summary><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg><span class="menu-label">Menu</span></summary>
+            <ul class="nav-panel">
+              <li><a href="/" aria-current="page">Accueil</a></li>
+              <li><a href="/en-ligne/">Version en ligne</a></li>
+              <li><a href="/questions/">Questions</a></li>
+              <li><a href="/mentions-legales/">Confidentialité</a></li>
+            </ul>
+          </details>
+        </nav>
+        <a class="btn btn-primary btn-sm header-dl" href="{{DOWNLOAD_URL}}?from=header"><span>Télécharger<span class="dl-mac"> pour Mac</span></span></a>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section class="hero" aria-labelledby="titre">
+        <div class="wrap">
+          <h1 id="titre">Modifier un PDF <span class="nw">sur Mac,</span> simplement</h1>
+          <p class="lead">
+            Corrigez quelques mots dans le PDF, ou transformez-le en Word ou Pages : c’est gratuit, sans inscription, et vos
+            documents restent sur votre ordinateur.
+          </p>
+          <div class="cta">
+            <a class="btn btn-primary btn-lg btn-dl" href="{{DOWNLOAD_URL}}?from=hero"><svg class="icon" aria-hidden="true"><use href="#i-down" /></svg><span class="btn-dl-text">Télécharger pour Mac<small><span>macOS 11 ou plus récent</span> <span>Intel et Apple Silicon</span></small></span></a>
+            <a class="btn btn-lg" href="/en-ligne/">Essayer en ligne</a>
+          </div>
+          <div class="tour" data-tour>
+            <div class="frame hero-shot">
+              <div class="tour-slides">
+                <img class="tour-slide is-active" src="/img/app-1-choisir.webp" width="1600" height="1047" fetchpriority="high" decoding="async" alt="Étape 1 de PDF Edit, l’écran « Quel PDF voulez-vous modifier ? », avec un grand bouton « Choisir un PDF… » et une zone où glisser le fichier." />
+                <img class="tour-slide" src="/img/app-2-que-faire.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="Étape 2, l’écran « Que voulez-vous faire ? » pour le fichier « Lettre de l’association.pdf », avec trois choix : Corriger quelques mots, Modifier dans Pages, Modifier dans Word." />
+                <img class="tour-slide" src="/img/app-3-ou-enregistrer.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="Étape 3, l’écran « Où enregistrer le nouveau fichier ? », avec trois choix : Sur le Bureau, Dans Téléchargements, Choisir un dossier…" />
+                <img class="tour-slide" src="/img/app-4-pret.webp" width="1600" height="1047" loading="lazy" decoding="async" aria-hidden="true" alt="L’écran « C’est prêt ! » : le fichier « Lettre de l’association.docx » est sur le Bureau, avec les boutons « Montrer dans le dossier » et « Ouvrir le fichier »." />
+              </div>
+            </div>
+            <div class="tour-nav" role="group" aria-label="Les étapes dans l’application">
+              <button type="button" class="tour-dot is-active" aria-current="step" aria-label="Étape 1 : choisir le PDF" data-caption="1. Choisissez le PDF à modifier.">1</button>
+              <button type="button" class="tour-dot" aria-label="Étape 2 : que voulez-vous faire ?" data-caption="2. Corrigez quelques mots, ou ouvrez-le dans Pages ou Word.">2</button>
+              <button type="button" class="tour-dot" aria-label="Étape 3 : où l’enregistrer ?" data-caption="3. Choisissez où enregistrer le nouveau fichier.">3</button>
+              <button type="button" class="tour-dot" aria-label="C’est prêt !" data-caption="C’est prêt ! PDF Edit vous dit où est le fichier.">
+                <svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>
+              </button>
+            </div>
+            <p class="tour-caption">1. Choisissez le PDF à modifier.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="corriger" class="section tint" aria-labelledby="corriger-titre">
+        <div class="wrap">
+          <div class="split">
+            <div class="split-text">
+              <h2 id="corriger-titre">Corriger directement dans le PDF</h2>
+              <p>
+                Cliquez sur la ligne, tapez la correction, puis appuyez sur Entrée. Elle s’écrit dans la police du PDF, et le
+                reste de la page ne bouge pas.
+              </p>
+            </div>
+            <div class="frame"><picture><source media="(max-width: 560px)" srcset="/img/app-corriger-dans-le-pdf-crop.webp" width="1306" height="825" /><img src="/img/app-corriger-dans-le-pdf.webp" width="1600" height="1047" loading="lazy" decoding="async" alt="Une lettre ouverte dans PDF Edit : la date « Paris, le 10 novembre 2026 » vient d’être retapée dans la police de la lettre, encadrée ; en bas, « 1 ligne modifiée » et le bouton « Enregistrer sur le Bureau »." /></picture></div>
+          </div>
+          <div class="split split-rev">
+            <div class="split-text">
+              <h3>Avant, après</h3>
+              <p>
+                Le bouton « Comparer » montre l’avant et l’après. Votre PDF d’origine n’est jamais modifié : la correction est
+                enregistrée dans un nouveau fichier.
+              </p>
+            </div>
+            <div class="frame"><img src="/img/app-comparer.webp" width="1600" height="1047" loading="lazy" decoding="async" alt="L’écran « Avant et après vos corrections » : « Paris, le 3 novembre 2026 » devient « Paris, le 10 novembre 2026 », avec la page d’origine et la page corrigée côte à côte." /></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="confidentialite" class="section" aria-labelledby="confidentialite-titre">
+        <div class="wrap">
+          <div class="section-head">
+            <h2 id="confidentialite-titre">Vos documents restent chez vous</h2>
+          </div>
+          <ul class="points">
+            <li>
+              <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-laptop" /></svg></span>
+              <h3>Rien n’est envoyé</h3>
+              <p>Tout se fait sur votre Mac.</p>
+            </li>
+            <li>
+              <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-heart" /></svg></span>
+              <h3>Gratuit</h3>
+              <p>Sans compte, sans publicité.</p>
+            </li>
+            <li>
+              <span class="points-icon" aria-hidden="true"><svg class="icon"><use href="#i-offline" /></svg></span>
+              <h3>Sans Internet</h3>
+              <p>Sauf, une seule fois, pour télécharger une police gratuite qui manque.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="telecharger" class="section download" aria-labelledby="telecharger-titre">
+        <div class="wrap">
+          <img class="app-icon" src="/favicon.svg" alt="" width="76" height="76" loading="lazy" />
+          <h2 id="telecharger-titre">PDF&nbsp;Edit pour Mac</h2>
+          <a class="btn btn-primary btn-lg btn-dl" href="{{DOWNLOAD_URL}}?from=download"><svg class="icon" aria-hidden="true"><use href="#i-down" /></svg><span class="btn-dl-text">Télécharger pour Mac<small><span>macOS 11 ou plus récent</span> <span>Intel et Apple Silicon</span></small></span></a>
+          <p class="facts"><span>Version {{VERSION}}</span> <span>{{DMG_SIZE}}</span></p>
+          <p class="alt-link"><a href="/en-ligne/">Pas de Mac ? Essayer la version en ligne</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <ul class="foot-links">
+          <li>© 2026 Makio</li>
+          <li><a href="/mentions-legales/">Confidentialité et mentions légales</a></li>
+          <li><a href="/questions/">Questions</a></li>
+          <!--IF_GITHUB-->
+          <li><a href="{{GITHUB_URL}}" data-track="gh" data-track-src="footer">Code source sur GitHub</a></li>
+          <!--/IF_GITHUB-->
+        </ul>
+        <p class="tm">Mac, macOS, Pages et Aperçu sont des marques d’Apple Inc. Word est une marque de Microsoft Corporation. PDF Edit n’est affilié ni à Apple ni à Microsoft.</p>
+      </div>
+    </footer>
+  </body>
+</html>

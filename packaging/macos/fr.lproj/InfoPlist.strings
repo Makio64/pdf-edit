@@ -1,0 +1,17 @@
+/* Textes de l'application affichés par macOS, en français.
+   Garder en accord avec packaging/macos/Info.plist.in. */
+
+/* Nom de l'application */
+"CFBundleName" = "PDF Edit";
+"CFBundleDisplayName" = "PDF Edit";
+"NSHumanReadableCopyright" = "© 2026 Makio";
+
+/* Autorisation de piloter Pages */
+"NSAppleEventsUsageDescription" = "PDF Edit demande à Pages de créer et d’ouvrir vos documents modifiables.";
+
+/* Autorisations d'enregistrer les nouveaux fichiers là où la personne l'a choisi */
+"NSDesktopFolderUsageDescription" = "PDF Edit enregistre vos nouveaux fichiers sur le Bureau quand vous le choisissez.";
+"NSDownloadsFolderUsageDescription" = "PDF Edit enregistre vos nouveaux fichiers dans le dossier Téléchargements quand vous le choisissez.";
+"NSDocumentsFolderUsageDescription" = "PDF Edit enregistre vos nouveaux fichiers dans le dossier Documents quand vous le choisissez.";
+"NSRemovableVolumesUsageDescription" = "PDF Edit enregistre vos nouveaux fichiers sur une clé USB ou un disque externe quand vous le choisissez.";
+"NSNetworkVolumesUsageDescription" = "PDF Edit enregistre vos nouveaux fichiers sur un disque du réseau quand vous le choisissez.";

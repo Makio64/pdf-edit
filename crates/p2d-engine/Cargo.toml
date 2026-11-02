@@ -1,0 +1,14 @@
+[package]
+name = "p2d-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+p2d-ir = { workspace = true }
+p2d-pdf = { workspace = true }
+p2d-layout = { workspace = true }
+p2d-ocr = { workspace = true }
+p2d-writers = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

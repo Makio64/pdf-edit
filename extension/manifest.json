@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "PDF Edit",
+  "version": "0.1.0",
+  "description": "Transforme vos pièces jointes PDF Gmail et vos fichiers PDF en documents modifiables dans Pages ou Word en un seul clic, 100 % sur votre Mac.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "PDF Edit — Glisser ou choisir un PDF",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "sw.js",
+    "type": "module"
+  },
+  "permissions": [
+    "offscreen",
+    "downloads",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://*.googleusercontent.com/*",
+    "https://*.google.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "gmail/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "ui/open-gesture.html",
+        "ui/open-gesture.css",
+        "ui/open-gesture.js",
+        "icons/icon-48.png"
+      ],
+      "matches": [
+        "https://mail.google.com/*"
+      ]
+    }
+  ]
+}

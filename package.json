@@ -1,0 +1,17 @@
+{
+  "name": "pdf-edit",
+  "private": true,
+  "description": "PDF Edit: shortcuts for the Rust (cargo) build. Nothing to install with pnpm.",
+  "scripts": {
+    "app": "./scripts/app.sh",
+    "dev": "./scripts/app.sh",
+    "build": "cargo build --release -p p2d-cli",
+    "extension": "./scripts/build-extension.sh",
+    "extension:install": "./scripts/install-extension.sh",
+    "mac:app": "./scripts/build-macos.sh --no-notarize",
+    "mac:release": "./scripts/build-macos.sh",
+    "web:build": "./scripts/build-web.sh",
+    "web:deploy": "cd site && test -s netlify/lib/release.generated.mts && test -s dist/index.html || { echo 'Nothing to deploy: run scripts/build-web.sh --ui-rev HEAD --dmg dist/PDF-Edit-<version>.dmg first' >&2; exit 1; }; if grep -q \"sha256: '0\\{64\\}'\" netlify/lib/release.generated.mts; then echo 'site/dist is a preview build (no --dmg): rebuild with --dmg before deploying to production' >&2; exit 1; fi; netlify deploy --prod --dir dist --functions netlify/functions",
+    "test": "cargo test --workspace"
+  }
+}

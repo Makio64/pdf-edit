@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Corriger le PDF — PDF Edit</title>
+    <link rel="stylesheet" href="drop.css" />
+    <link rel="stylesheet" href="edit.css" />
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true"><div class="progress-bar" style="width: 100%"></div></div>
+
+    <header class="top">
+      <!-- Back to screen 2 of the home page, with the same PDF (see drop.js) -->
+      <a href="drop.html#choix" class="back">← Retour</a>
+      <span class="brand">PDF Edit</span>
+      <span class="step-count">Dernière étape</span>
+    </header>
+
+    <!-- Step 3 when correcting the PDF itself: the pages, then « C'est enregistré » -->
+    <main id="editView" class="stage stage-wide">
+      <h1 class="question">Cliquez sur le texte à corriger</h1>
+      <p class="lead">Tapez la correction, puis appuyez sur la touche Entrée.</p>
+      <p class="file-chip">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+          <path d="M14 3v5h5" />
+        </svg>
+        <span id="docName"></span>
+      </p>
+      <p id="errorBox" class="error" role="alert" hidden>Un problème est survenu. <span id="errorText"></span></p>
+      <p id="otherFolderBox" class="other-folder" hidden>
+        <button id="otherFolderBtn" type="button" class="btn btn-primary btn-lg">Choisir un autre dossier…</button>
+      </p>
+      <div id="pages" class="edit-pages" aria-label="Pages du document">
+        <p id="pagesLoading" class="edit-loading"><span class="spinner" aria-hidden="true"></span>Affichage des pages…</p>
+      </div>
+
+      <!-- « Comparer »: the corrected pages before and after, side by side -->
+      <section id="compareView" class="compare" hidden>
+        <h1 class="question">Avant et après vos corrections</h1>
+        <p class="lead">À gauche le PDF d’origine, à droite avec vos corrections. Les lignes modifiées sont encadrées en jaune.</p>
+        <div id="comparePages"></div>
+      </section>
+    </main>
+
+    <section id="savedBox" class="stage" hidden>
+      <div class="view done">
+        <span class="done-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+        </span>
+        <h1 class="question">C’est enregistré !</h1>
+        <p class="lead">Voici votre PDF corrigé. Le PDF d’origine n’a pas changé.</p>
+        <div class="file-card" data-ext="pdf">
+          <span class="file-icon" aria-hidden="true"><span class="file-ext">PDF</span></span>
+          <div class="file-info">
+            <strong id="savedSummary" class="file-name"></strong>
+            <span class="place">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              </svg>
+              <span id="savedPlace">Dans <b>Téléchargements</b></span>
+            </span>
+          </div>
+        </div>
+        <div class="done-actions">
+          <button id="revealSavedBtn" type="button" class="btn btn-primary btn-lg">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            </svg>
+            Montrer dans le dossier
+          </button>
+          <button id="openSavedBtn" type="button" class="btn btn-lg">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 4h6v6" />
+              <path d="M20 4l-9 9" />
+              <path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" />
+            </svg>
+            Ouvrir le fichier
+          </button>
+        </div>
+        <p class="done-links">
+          <button id="continueBtn" type="button" class="link">Corriger encore</button>
+          <a href="drop.html" class="link">Modifier un autre PDF</a>
+        </p>
+      </div>
+    </section>
+
+    <dialog id="leaveDialog" class="leave-dialog" aria-labelledby="leaveTitle">
+      <h2 id="leaveTitle" class="leave-title">Vos corrections ne sont pas enregistrées</h2>
+      <p class="lead">Si vous quittez cette page maintenant, les corrections que vous avez tapées seront perdues.</p>
+      <div class="leave-actions">
+        <button id="stayBtn" type="button" class="btn btn-primary btn-lg">Continuer à corriger</button>
+        <button id="leaveBtn" type="button" class="btn btn-lg">Quitter sans enregistrer</button>
+      </div>
+    </dialog>
+
+    <footer id="saveBar" class="save-bar">
+      <div class="save-bar-inner">
+        <div class="save-info">
+          <span id="editStatus" class="save-status" role="status"></span>
+          <button id="revertBtn" type="button" class="link" hidden>Tout annuler</button>
+        </div>
+        <div class="save-tools">
+          <button id="undoBtn" type="button" class="btn btn-tool" title="Annuler la dernière correction (⌘Z)" disabled>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 14L4 9l5-5" />
+              <path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11" />
+            </svg>
+            <span class="tool-label">Annuler</span>
+          </button>
+          <button id="redoBtn" type="button" class="btn btn-tool" title="Rétablir la correction annulée (⇧⌘Z)" disabled>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M15 14l5-5-5-5" />
+              <path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13" />
+            </svg>
+            <span class="tool-label">Rétablir</span>
+          </button>
+          <button id="compareBtn" type="button" class="btn btn-tool" title="Voir le PDF d’origine à côté de vos corrections" aria-pressed="false" disabled>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="4" width="7.5" height="16" rx="1.5" />
+              <rect x="13.5" y="4" width="7.5" height="16" rx="1.5" />
+            </svg>
+            <span id="compareLabel" class="tool-label">Comparer</span>
+          </button>
+        </div>
+        <button id="saveBtn" type="button" class="btn btn-primary btn-lg" disabled>Enregistrer le PDF</button>
+      </div>
+    </footer>
+
+    <script src="edit.js"></script>
+  </body>
+</html>

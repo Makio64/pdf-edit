@@ -1,0 +1,22 @@
+[package]
+name = "p2d-pdf"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+p2d-ir = { workspace = true }
+hayro = { workspace = true }
+hayro-interpret = { workspace = true }
+hayro-syntax = { workspace = true }
+kurbo = { workspace = true }
+skrifa = { workspace = true }
+png = { workspace = true }
+jpeg-encoder = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+libm = { workspace = true }
+miniz_oxide = { workspace = true }
+
+[dev-dependencies]
+pdf-writer = { workspace = true }
